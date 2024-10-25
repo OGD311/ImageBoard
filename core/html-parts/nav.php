@@ -3,11 +3,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
 if (isset($_SESSION['user_id'])) {
     
-    $sql = "SELECT * FROM users WHERE id = {$_SESSION['user_id']}";
+    $sql = "SELECT id, username FROM users WHERE id = {$_SESSION['user_id']}";
 
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
+ 
 
 } else {
     $user = null;
@@ -43,7 +44,7 @@ if ($user) {
         <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="/core/users/user.php?user_id=' . ($user['id']) . '">Profile</a></li> ';
 
-        if (is_admin($user)) {
+        if (is_admin($user['id'])) {
             echo '<li><a class="dropdown-item" href="/ext/admin/main.php">Admin</a></li>';
         }
     echo '<li><hr class="dropdown-divider"></li>

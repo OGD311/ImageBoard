@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="/index.php">Home</a></li>
         <li><a href="regenerate-thumbnails.php">Regenerate Thumbnails</a></li>
         <li><a href="recount-tags.php">Recount Tags</a></li>
-        <li><a href="sql-test.php">SQL Test</a></li>
+        <li><a href="sql-test.php" onclick="return confirmWarning();">SQL Test</a></li>
         <li><a href="shuffle-ids.php">Shuffle IDs</a></li>
         <br>
         <li>
@@ -99,4 +99,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </li>
     </ul>
 </body>
+
+<script>
+    function confirmWarning() {
+        return confirm("Warning: You are about to run a SQL test.This will add about 40000 entries to the DB. Do you wish to continue?");
+    }
+</script>
 </html>

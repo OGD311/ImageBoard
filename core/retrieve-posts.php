@@ -21,7 +21,7 @@ function get_posts($search = [], $page = 1, $count = false) {
         $negation = false;
 
         // Handle negation (tags that should be excluded)
-        var_dump($term);
+ 
         if (strpos($term, '-') === 0) {
             $negation = true;
             $term = ltrim($term, '-');
@@ -30,10 +30,8 @@ function get_posts($search = [], $page = 1, $count = false) {
         // Skip empty search terms
         if (empty($term)) {
             continue;
-        }
-
-        var_dump($negation);
-
+        } 
+    
         // Handle special cases: rating, title, user, and order
         if (preg_match('/rating\s*:\s*\'?(\S+?)\'?/', $term, $matches)) {
             $conditions[] = "p.rating " . ($negation === true ? 'NOT ' : '') . " LIKE '" . $mysqli->real_escape_string(get_rating_value(substr($matches[1], 0))) . "'";
@@ -66,9 +64,7 @@ function get_posts($search = [], $page = 1, $count = false) {
             }
         }
     }
-
-    var_dump($conditions);
-
+ 
     // Join post_tags and tags tables if tags are involved
     if ($joinTags) {
         $sql .= " LEFT JOIN post_tags pt ON p.id = pt.post_id 
