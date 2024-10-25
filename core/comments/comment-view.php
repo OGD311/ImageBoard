@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     FROM comments c
     JOIN users u ON c.user_id = u.id 
     WHERE c.post_id = '%s'
+    ORDER BY c.posted_at DESC
     LIMIT " . $GLOBALS['_COMMENTS_PER_PAGE'] . "", htmlspecialchars($post['id']) );
     
     $result = $mysqli->query($sql);

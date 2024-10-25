@@ -72,6 +72,9 @@ $mysqli->query("ALTER TABLE posts AUTO_INCREMENT = $maxId");
 $maxId = $mysqli->query("SELECT COALESCE(MAX(id), 0) + 1 AS next_id FROM tags")->fetch_assoc()['next_id'];
 $mysqli->query("ALTER TABLE tags AUTO_INCREMENT = $maxId");
 
+$maxId = $mysqli->query("SELECT COALESCE(MAX(id), 0) + 1 AS next_id FROM comments")->fetch_assoc()['next_id'];
+$mysqli->query("ALTER TABLE comments AUTO_INCREMENT = $maxId");
+
 // Redirect to main page
 header('Location: main.php');
 exit();
