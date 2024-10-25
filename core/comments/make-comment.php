@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $postId = (int)$_POST['post_id'];
     $userId = (int)$_POST['user_id'];
-    $comment = $mysqli->real_escape_string($_POST['comment']);
+    $comment = $mysqli->real_escape_string(substr($_POST['comment'], 0, 144));
     $postedAt = time();
 
     $stmt->bind_param("iisi", $postId, $userId, $comment, $postedAt);
