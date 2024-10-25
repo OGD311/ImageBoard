@@ -107,8 +107,9 @@ if (strpos($mime_type, 'video/') === 0) {
 
 // Create safe path and hash for file
 $pathinfo = pathinfo($_FILES["media"]["name"]);
+$pathinfo['extension'] = strtolower($pathinfo['extension']);
 
-if ($pathinfo['extension'] == 'JPEG') {
+if ($pathinfo['extension'] == 'jpeg') {
     $pathinfo['extension'] = 'jpg';
 }
 

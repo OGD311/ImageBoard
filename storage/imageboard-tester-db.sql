@@ -6,7 +6,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE DATABASE IF NOT EXISTS `imageboard-tester-db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS `imageboard-tester-db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `imageboard-tester-db`;
 
 CREATE TABLE `comments` (
@@ -15,7 +15,7 @@ CREATE TABLE `comments` (
   `user_id` int NOT NULL,
   `comment` text NOT NULL,
   `posted_at` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
  
 CREATE TABLE `posts` (
   `id` int NOT NULL,
@@ -23,19 +23,19 @@ CREATE TABLE `posts` (
   `user_id` int NOT NULL,
   `extension` text NOT NULL,
   `filesize` int NOT NULL,
-  `filehash` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `filehash` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `file_height` int NOT NULL,
   `file_width` int NOT NULL,
   `rating` int NOT NULL DEFAULT '2',
   `comment_count` int NOT NULL DEFAULT '0',
   `uploaded_at` int NOT NULL,
   `updated_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `post_tags` (
   `post_id` int NOT NULL,
   `tag_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
@@ -44,7 +44,7 @@ CREATE TABLE `tags` (
   `name` text NOT NULL,
   `count` int NOT NULL DEFAULT '0',
   `created_at` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE `users` (
   `password_hash` text NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 ALTER TABLE `comments`
