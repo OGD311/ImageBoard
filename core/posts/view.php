@@ -131,10 +131,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             <br>
 
         
-
-            <?php include '../comments/comment-view.php'; ?>
             
             <?php include '../comments/comment-form.php'; ?>
+            
+            <?php include '../comments/comment-view.php'; ?>
+            
         </div>
 
         
@@ -194,11 +195,15 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     });
 
     window.onload = function() {
-        widthSelect.value = 'sample';  // Set the new value
+        widthSelect.value = 'sample';  
         widthSelect.dispatchEvent(new Event('change'));
     };
 
-    window.onresize = widthSelect.dispatchEvent(new Event('change'));
+    window.onresize = function() {
+        widthSelect.value = 'sample'; 
+        widthSelect.dispatchEvent(new Event('change'));
+    }
+    
 </script>
 
     

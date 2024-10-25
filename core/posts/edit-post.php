@@ -23,16 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 
     $updatedAt = time();
-    $postId = (int)$_POST['post_id'];
-    $userId = (int)$_POST['user_id'];
+    $post_id = (int)$_POST['post_id'];
+    $user_id = (int)$_POST['user_id'];
 
 
-    $stmt->bind_param("siiii", $title, $rating, $updatedAt, $postId, $userId);
+    $stmt->bind_param("siiii", $title, $rating, $updatedAt, $post_id, $user_id);
 
 
     if ($stmt->execute()) {
         $mysqli->close();
-        header('Location: /core/posts/view.php?post_id=' . $postId);
+        header('Location: /core/posts/view.php?post_id=' . $post_id);
         exit(); 
     } else {
         die("Error updating post: " . $stmt->error);

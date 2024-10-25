@@ -7,7 +7,8 @@ if (isset($_SESSION['user_id'])) {
     <input type="hidden" name="user_id" value="' . htmlspecialchars($user['id']) . '">
     <input type="hidden" name="post_id" value="' . htmlspecialchars($post['id']) . '">
 
-    <input type="text" id="comment" name="comment" placeholder="Comment:" maxlength="144" value="">
+    <input type="text" id="comment" name="comment" 
+    placeholder="Comment:" required maxlength="' . $GLOBALS['_COMMENT_CHARACTER_LIMIT'] . '" value="">
     <br>
     <button type="submit">Post</button>
 </form>

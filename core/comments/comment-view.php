@@ -6,7 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $sql = sprintf("SELECT c.*, u.username 
     FROM comments c
     JOIN users u ON c.user_id = u.id 
-    WHERE c.post_id = '%s'", htmlspecialchars($post['id']) );
+    WHERE c.post_id = '%s'
+    LIMIT " . $GLOBALS['_COMMENTS_PER_PAGE'] . "", htmlspecialchars($post['id']) );
     
     $result = $mysqli->query($sql);
 

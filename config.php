@@ -16,6 +16,8 @@ $GLOBALS['_SITE_DOWNTIME_MESSAGE'] = '';
 
 $GLOBALS['_POSTS_PER_PAGE'] = 45;
 $GLOBALS['_TAGS_ALL_LIMIT'] = 16;
+$GLOBALS['_COMMENTS_PER_PAGE'] = 16;
+$GLOBALS['_COMMENT_CHARACTER_LIMIT'] = 256;
 
 
 
@@ -61,11 +63,20 @@ function get_user_id($username) {
     $stmt->execute();
 
     $result = $stmt->get_result();
-    $user_id = $result->fetch_assoc()['id'];
-    $stmt->close();
-    $mysqli->close();
+    try {
+        $user = $result->fetch_assoc();
+        if ($user) {
+            $user_id = $user['id'];
+        } else {
+            $user_id = null;
+        }
+    } finally {
+        $stmt->close();
+        $mysqli->close();
+    }
 
-    return $user_id;
+
+    return isset($user_id) ? $user_id : '';
 }
 
 function get_user_name($user_id) {
@@ -80,7 +91,7 @@ function get_user_name($user_id) {
     $stmt->close();
     $mysqli->close();
 
-    return $username;
+    return isset($username) ? $username : '';
 }
 
 

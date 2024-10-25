@@ -55,7 +55,7 @@ if (isset($_SESSION['user_id'])) {
                             <option value="2" selected>Explicit</option>
                         </select>
 
-                        <button>Upload</button>
+                        <button onClick="this.form.submit(); this.disabled=true;" >Upload</button>
 
                     </form>
 

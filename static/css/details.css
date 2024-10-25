@@ -96,6 +96,6 @@ html * {
 
 
 .image-sample {
-    width: min(850px, 75%);
-    height: min(850px, 75%);
+    width: min(850px, 40%);
+    height: min(850px, 40%);
 }

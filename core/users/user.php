@@ -8,13 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $mysqli = $_DB;
 
     if (isset($_GET['user_id'])) {
-        $accountId = (int)$_GET['user_id']; 
+        $user_id = (int)$_GET['user_id']; 
     
         $userQuery = sprintf("
         SELECT id, username 
         FROM users 
         WHERE id = '%s'", 
-        $mysqli->real_escape_string($accountId));
+        $mysqli->real_escape_string($user_id));
      
     
     
@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             FROM posts p 
             WHERE p.user_id = '%s' 
             ORDER BY p.uploaded_at DESC
-            LIMIT " . ($_POSTS_PER_PAGE) . ";", 
-            $mysqli->real_escape_string($accountId)
+            LIMIT " . ($GLOBALS['_POSTS_PER_PAGE']) . ";", 
+            $mysqli->real_escape_string($user_id)
         );
         
         $postsResult = $mysqli->query($postsQuery);
@@ -47,8 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             SELECT c.* 
             FROM comments c 
             WHERE  c.user_id = '%s' 
-            ORDER BY c.posted_at DESC", 
-            $mysqli->real_escape_string($accountId)
+            ORDER BY c.posted_at DESC
+            LIMIT " . ($GLOBALS['_COMMENTS_PER_PAGE']) . ";", 
+            $mysqli->real_escape_string($user_id)
         );
     
         $commentsResult = $mysqli->query($commentsQuery);
@@ -99,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                     echo '
                         <div class="card justify-content-center border-2 m-1" style="width: 12rem;">
                         <a href="/core/posts/view.php?post_id=' . $post['id'] . '">
-                        <img class="card-img-top ' . $apply_blur . '" src="/storage/uploads/' . htmlspecialchars($post['filehash'] . "." . $post['extension']) . '" alt="Post Image" width=200 height=200 style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;">
+                        <img class="card-img-top ' . $apply_blur . '" src="/storage/thumbnails/' . htmlspecialchars($post['filehash']) . "-thumb.jpg" . '" alt="Post Image" width=200 height=200 style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;">
                         </a>
                         <span style="display: flex; align-items: center; gap: 10px;">
                             <img src="/static/svg/comment-icon.svg" alt="Description of the icon" width="16" height="16">
