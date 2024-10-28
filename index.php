@@ -26,7 +26,7 @@ $posts_count_array = str_split((string)$posts_count);
             <?php
             foreach ($posts_count_array as $counter) {
                 echo '<div class="card border-0" style="width: 20%; background: none;">';
-                echo '<img class="" src="/static/images/counter/' . $counter . '.png" alt="Post Image">';
+                echo '<img class="" decoding="async" src="/static/images/counter/' . $counter . '.png" alt="Post Image">';
                 echo '</div>';
             }
 

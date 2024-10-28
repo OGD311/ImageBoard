@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
                 if (in_array($fileType, ['jpg', 'jpeg', 'png', 'gif'])) {
                     // Display image
-                    echo '<img id="post" src="' . '/storage/uploads/' . $post['filehash'] . '.' . $fileType . '"style="border-width: 1px;">';
+                    echo '<img id="post" decoding="async" src="' . '/storage/uploads/' . $post['filehash'] . '.' . $fileType . '"style="border-width: 1px;">';
                 } elseif (in_array($fileType, ['mp4', 'webm', 'ogg'])) {
                     // Display video
                     echo '<video id="post" controls width="' . $post['file_width'] . '" height="' . $post['file_height'] . '">
