@@ -12,6 +12,10 @@ html * {
     color: #3b3939;
 }
 
+.card {
+    background-color: lightgreen;
+}
+
 .footer-statistics {
     clear: both;
     position: relative;

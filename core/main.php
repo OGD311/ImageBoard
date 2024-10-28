@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         $cardContent = [
                             '<div class="card justify-content-center border-2 m-1" style="width: 12rem;">',
                                 '<a href="/core/posts/view.php?post_id=' . $post['id'] . '&search='. $searchString . '">',
-                                    '<img class="card-img-top ' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">',
+                                    '<img class="card-img-top ' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" decoding="async" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">',
                                     (strtolower($post['extension']) != 'png' && strtolower($post['extension']) != 'jpg' && strtolower($post['extension']) != 'jpeg') ? '<p class="extension-tag">' . $post['extension'] . '</p>'  : '',
                                 '</a>',
                                 '<span style="display: flex; align-items: center; gap: 10px;">',
