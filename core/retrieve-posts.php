@@ -1,6 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/core/tags/tag-aliases.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/tags/tag-functions.php';
 
 function get_posts($search = [], $page = 1, $count = false) {
     // Ensure the page is at least 1
