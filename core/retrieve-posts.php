@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/tags/tag-aliases.php';
 
 function get_posts($search = [], $page = 1, $count = false) {
     // Ensure the page is at least 1
@@ -57,10 +58,13 @@ function get_posts($search = [], $page = 1, $count = false) {
         } else {
             // Handle tags
             $joinTags = true;
+            $tag = $mysqli->real_escape_string(trim($term));
+            $tag = get_alias($tag) ? get_alias($tag)['name'] : $tag;
+
             if ($negation) {
-                $excludeTags[] = $mysqli->real_escape_string(trim($term));
+                $excludeTags[] = $tag;
             } else {
-                $includeTags[] = $mysqli->real_escape_string(trim($term));
+                $includeTags[] = $tag;
             }
         }
     }

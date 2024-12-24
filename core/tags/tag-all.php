@@ -1,10 +1,11 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/tags/tag-aliases.php';
 
 $mysqli = $_DB; 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
-    $sql = sprintf("SELECT name, count
+    $sql = sprintf("SELECT id, name, count
     FROM tags
     WHERE count != 0
     LIMIT " . $_TAGS_ALL_LIMIT . "");
@@ -24,9 +25,18 @@ if ($result) {
     echo '<ul>';
     foreach ($tags as $tag) {
         echo '<div class="tag"> <p>';
-        echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($tag['name']) . '\', true)">+</a> <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($tag['name']) . '\', false)">-</a></span> ' .  str_replace('_', ' ', htmlspecialchars($tag['name'])) . ' (' . htmlspecialchars($tag['count']) . ')</li>';
+        $alias = get_alias($tag['id']) ? get_alias($tag['id']) : null;
+
+        if ($alias) {
+            echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($alias['name']) . '\', true)">+</a> <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($alias['name']) . '\', false)">-</a></span> ' .  str_replace('_', ' ', htmlspecialchars($tag['name'])) . ' (' . htmlspecialchars($tag['count']) . ') -> ' . htmlspecialchars($alias['name']) . ' (' . htmlspecialchars($alias['count']) . ')';
+        } else {
+            echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($tag['name']) . '\', true)">+</a> <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($tag['name']) . '\', false)">-</a></span> ' .  str_replace('_', ' ', htmlspecialchars($tag['name'])) . ' (' . htmlspecialchars($tag['count']) . ')';
+        }
+
+        echo '</li>';
+
         echo '</p></div>';
-    }
+        }
 
 
     if ((count($tags)) == 0) {
