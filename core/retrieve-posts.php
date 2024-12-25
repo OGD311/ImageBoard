@@ -59,12 +59,13 @@ function get_posts($search = [], $page = 1, $count = false) {
             // Handle tags
             $joinTags = true;
             $tag = $mysqli->real_escape_string(trim($term));
-            $tag = get_alias($tag) ? get_alias($tag)['name'] : $tag;
+            $alias = get_alias($tag) ? get_alias($tag)['name'] : $tag;
+            $original = get_original($tag) ? get_original($tag)['name'] : $tag;
 
             if ($negation) {
-                $excludeTags[] = $tag;
+                $excludeTags = array_merge($excludeTags, [$original, $tag, $alias]);
             } else {
-                $includeTags[] = $tag;
+                $includeTags = array_merge($includeTags, [$original, $tag, $alias]);
             }
         }
     }
@@ -85,7 +86,7 @@ function get_posts($search = [], $page = 1, $count = false) {
                     JOIN tags t ON pt.tag_id = t.id 
                     WHERE t.name IN ('" . implode("', '", $includeTags) . "')
                     GROUP BY pt.post_id
-                    HAVING COUNT(DISTINCT t.name) = " . count($includeTags) . "
+                    HAVING COUNT(DISTINCT t.name) = " . count($includeTags)/3 . "
                   )";
     }
 

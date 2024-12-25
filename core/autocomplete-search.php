@@ -26,23 +26,28 @@ if (!empty($_POST["word"])) {
 
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) { ?>
-                <?php while ($tag = $result->fetch_assoc()) { ?>
-                    <li onclick="remove_from_search('<?php echo htmlspecialchars(($_POST["word"])); ?>'); add_to_search('<?php echo htmlspecialchars($tag['name']); ?>', true);">
-                        <a class="dropdown-item">
-                            <?php echo str_replace('_', ' ', htmlspecialchars($tag["name"]));
-                            if (get_alias($tag['id']) != null) { 
-                                $alias = get_alias($tag['id']);
-                                echo ' -> ' . str_replace('_', ' ', htmlspecialchars($alias["name"]));
-                            } ?>
-                        </a>
-                    </li>
-                <?php } ?>
-        <?php } else { ?>
+        if ($result->num_rows > 0) { 
+            while ($tag = $result->fetch_assoc()) { 
+            $alias = get_alias($tag['id']) ? get_alias($tag['id']) : null;
+            
+            if ($alias) { 
+                echo '
+                <li onclick="remove_from_search(\'' . htmlspecialchars($_POST["word"]) . '\'); add_to_search(\'' . htmlspecialchars($alias['name']) . '\', true);">
+                <a class="dropdown-item">' . str_replace('_', ' ', htmlspecialchars($tag["name"])) . ' -> ' . str_replace('_', ' ', htmlspecialchars($alias["name"])) . '</a>
+                </li>';
+            } else { 
+                echo '
+                <li onclick="remove_from_search(\'' . htmlspecialchars($_POST["word"]) . '\'); add_to_search(\'' . htmlspecialchars($tag['name']) . '\', true);">
+                <a class="dropdown-item">' . str_replace('_', ' ', htmlspecialchars($tag["name"])) . '</a>
+                </li>'; 
+            }
+            }
+        } else { 
+            echo '
             <li>
                 <a class="dropdown-item">No tags found</a>
-            </li>
-        <?php }
+            </li>';
+        }
  
 
         $stmt->close();

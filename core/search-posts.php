@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/tags/tag-functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $searchInput = strtolower($_POST['search']) ?? '';
@@ -21,7 +22,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Replace the rating term with its processed value in the search input
         $searchInput = preg_replace('/rating\s*:\s*\'?(\S+?)\'?/', 'rating:' . htmlspecialchars($rating), $searchInput);
     }
+    // Split searchInput into a list on the '+'
+    $searchTerms = explode('+', $searchInput);
 
+    // Apply get_alias to each element
+    foreach ($searchTerms as &$term) {
+        $alias = get_alias($term);
+        $term = $alias ? $alias['name'] : $term;
+    }
+
+    // Rejoin the list after applying get_alias to each element
+    $searchInput = implode('+', $searchTerms);
+  
     // Replace spaces with plus signs for the URL search parameter
     $search = str_replace(' ', '+', $searchInput);
 
