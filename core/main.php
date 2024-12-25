@@ -1,11 +1,11 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require_once '../core/retrieve-posts.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/favourites/favourites-functions.php';
+
 session_start();
 
 $mysqli = $_DB;
-
-
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     
@@ -124,7 +124,19 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                                 '<span style="display: flex; align-items: center; gap: 10px;">',
                                     '<img src="/static/svg/comment-icon.svg" alt="Description of the icon" width="16" height="16">',
                                     '<p style="margin: 0;">' . $post['comment_count'] . '</p>',
+
                                     '<p style="margin: 0;" class="rating-' . $post['rating'] . '">' . get_rating_text($post['rating'], true) . '</p>',
+
+                                    
+                                    is_favourite($post['id'], $_SESSION['user_id']) ? 
+                                    '<a id="removeFavourite" onclick="remove_from_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">
+                                    <img src="/static/svg/heart-fill-icon.svg" alt="Description of the icon" width="16" height="16">
+                                    </a>' 
+                                    : 
+                                    '<a id="addFavourite" onclick="add_to_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">
+                                    <img src="/static/svg/heart-empty-icon.svg" alt="Description of the icon" width="16" height="16" >
+                                    </a>',
+
                                 '</span>',
                             '</div>'
                         ];
