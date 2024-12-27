@@ -124,15 +124,26 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         echo '<img src="/static/svg/comment-icon.svg" alt="Description of the icon" width="16" height="16">';
                         echo '<p style="margin: 0;">' . $post['comment_count'] . '</p>';
                         echo '<p style="margin: 0;" class="rating-' . $post['rating'] . '">' . get_rating_text($post['rating'], true) . '</p>';
-                        if (is_favourite($post['id'], $_SESSION['user_id'])) {
-                            echo '<a id="removeFavourite" onclick="remove_from_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
-                            echo '<img src="/static/svg/heart-fill-icon.svg" alt="Description of the icon" width="16" height="16">';
-                            echo '</a>';
+                        
+                        if (isset($_SESSION['user_id'])) {
+
+                        
+                            if (is_favourite($post['id'], $_SESSION['user_id'])) {
+                                echo '<a id="removeFavourite ' . $post['id'] . '" onclick="remove_from_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
+                                echo '<img src="/static/svg/heart-fill-icon.svg" alt="Description of the icon" width="16" height="16">';
+                                echo '</a>';
+                            } else {
+                                echo '<a id="addFavourite ' . $post['id'] . '" onclick="add_to_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
+                                echo '<img src="/static/svg/heart-empty-icon.svg" alt="Description of the icon" width="16" height="16">';
+                                echo '</a>';
+                            }
+                        
                         } else {
-                            echo '<a id="addFavourite" onclick="add_to_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
+                            echo '<a href="/core/users/login.php">';
                             echo '<img src="/static/svg/heart-empty-icon.svg" alt="Description of the icon" width="16" height="16">';
                             echo '</a>';
                         }
+
                         echo '</span>';
                         echo '</div>';
                     }

@@ -92,8 +92,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     ?>
     <h3><?= get_display_name($userData['id'])?></h3>
         <p><?= get_bio($userData['id'])?></p>
-
+        <?php if (!empty($_SESSION['user_id']) && ($userData['id'] == $_SESSION['user_id'] || is_admin($_SESSION['user_id']))) : ?>
         <a class="btn btn-danger" href=./profiles/edit-profile.php>Edit Profile</a>
+        <?php endif; ?>
     </div>
 
     <h2><?= $userData['username'] ?>'s latest Posts</h2>
