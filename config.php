@@ -1,3 +1,5 @@
+
+
 <?php
 // File Links 
 $GLOBALS['_DB'] = require __DIR__ . "/storage/database.php";
@@ -19,7 +21,12 @@ $GLOBALS['_TAGS_ALL_LIMIT'] = 16;
 $GLOBALS['_COMMENTS_PER_PAGE'] = 16;
 $GLOBALS['_COMMENT_CHARACTER_LIMIT'] = 256;
 
-
+// Redis
+use Predis\Client as Redis;
+$redis = new Redis();
+$redis->connect('localhost', 6379);
+$GLOBALS['_REDIS'] = $redis;
+$GLOBALS['_REDISTIMEOUT'] = 300;
 
 // General functions
 

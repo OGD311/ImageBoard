@@ -38,13 +38,27 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $current_page_number = 1;
     }
     
-    $result = get_posts($searchList, $current_page_number, true); 
+    $cacheKey = 'page_posts_' . $current_page_number . '_' . $searchString . '_' . $order_by;
+    $cachedResult = $redis->get($cacheKey);
 
-    $posts = $result['posts'];      
-    $total_posts = $result['total_posts'];
+    if ($cachedResult) {
+        $result = unserialize($cachedResult);
+        $posts = $result['posts'];      
+        $total_posts = $result['total_posts'];
+        $number_of_pages = number_of_pages($total_posts);
 
+    } else {
+        $result = get_posts($searchList, $current_page_number, true); 
 
-    $number_of_pages = number_of_pages($total_posts);
+        $posts = $result['posts'];      
+        $total_posts = $result['total_posts'];
+        $number_of_pages = number_of_pages($total_posts);
+
+        $seconds_until_timeout = $_REDISTIMEOUT / count($searchList) + ($order_by != 'upload-desc' ? 0 : 100) + ($number_of_pages - $current_page_number);
+        $redis->set($cacheKey, serialize($result));
+    }
+
+    
 
     if ($current_page_number > $number_of_pages) {
         header('Location: main.php?page='. $number_of_pages .'&search=' . $_GET['search']);
@@ -105,6 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         <div id="posts" class="right-div container-main text-center row justify-content-center">
             <?php
+            
                 if ($result) {
                     foreach ($posts as $post) {
                         
@@ -115,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         
                         echo '<div class="card justify-content-center border-2 m-1" style="width: 12rem;">';
                         echo '<a href="/core/posts/view.php?post_id=' . $post['id'] . '&search='. $searchString . '">';
-                        echo '<img class="card-img-top ' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" decoding="async" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">';
+                        echo '<img class="card-img-top ' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">';
                         if (strtolower($post['extension']) != 'png' && strtolower($post['extension']) != 'jpg' && strtolower($post['extension']) != 'jpeg') {
                             echo '<p class="extension-tag">' . $post['extension'] . '</p>';
                         }
