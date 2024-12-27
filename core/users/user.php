@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+require_once './profiles/profile-functions.php';
 
 session_start();
 
@@ -82,7 +83,18 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 <body>
     <?php include '../html-parts/nav.php'; ?>
 
-    <h1><?= $userData['username'] ?>'s profile</h1>
+    <h1><?= $userData['username'] ?></h1>
+
+    <div>
+
+    <?php 
+        echo '<img src="/storage/profilepictures/' . get_profile_picture($userData['id']) . '.jpg" alt="Profile Picture" width="200" height="200" style="object-fit: contain;">';
+    ?>
+    <h3><?= get_display_name($userData['id'])?></h3>
+        <p><?= get_bio($userData['id'])?></p>
+
+        <a class="btn btn-danger" href=./profiles/edit-profile.php>Edit Profile</a>
+    </div>
 
     <h2><?= $userData['username'] ?>'s latest Posts</h2>
     <div id="posts" class="container-fluid text-center row justify-content-center">

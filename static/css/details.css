@@ -103,3 +103,24 @@ html * {
     width: min(850px, 40%);
     height: min(850px, 40%);
 }
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    width: 100%;
+
+    border: 1px solid black;
+    background-color: #efefef;
+}
+

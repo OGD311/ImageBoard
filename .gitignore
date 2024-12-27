@@ -1,6 +1,8 @@
 *.env
 */uploads/*
 */thumbnails/*
+*/profilepictures/*
+!*/profilepictures/default.jpg
 *.DS_STORE 
 */api/*
 storage/password.txt

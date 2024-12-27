@@ -21,6 +21,7 @@ if (empty($_FILES)) {
     exit('$_FILES is empty - is file_uploads enabled in php.ini?');
 }
 
+
 if ($_FILES["media"]["error"] !== UPLOAD_ERR_OK) {
 
     switch ($_FILES["media"]["error"]) {
