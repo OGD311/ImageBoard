@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $mysqli = $_DB;
 
     if (isset($_GET['post_id'])) {
-        $postId = (int)$_GET['post_id']; // Casting to integer for safety
+        $post_id = (int)$_GET['post_id']; // Casting to integer for safety
     
         // Combined SQL query using LEFT JOIN
         $sql = sprintf("
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             FROM posts p 
             LEFT JOIN users u ON p.user_id = u.id 
             WHERE p.id = '%s'", 
-            $mysqli->real_escape_string($postId)
+            $mysqli->real_escape_string($post_id)
         );
     
         $result = $mysqli->query($sql);
@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             <?php
                 $fileType = $post['extension']; // Assuming extension is already provided in the array
 
-                if (in_array($fileType, ['jpg', 'jpeg', 'png', 'gif'])) {
+                if (in_array($fileType, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
                     // Display image
                     echo '<img id="post" decoding="async" src="' . '/storage/uploads/' . $post['filehash'] . '.' . $fileType . '"style="border-width: 1px;">';
                 } elseif (in_array($fileType, ['mp4', 'webm', 'ogg'])) {

@@ -110,38 +110,31 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         
                         $apply_blur = $post['rating'] == 2 ? 'blur-explicit' : '';
                         
- 
                         $filehash = htmlspecialchars($post['filehash']);
                         $imageSrc = "/storage/thumbnails/{$filehash}-thumb.jpg";
                         
- 
-                        $cardContent = [
-                            '<div class="card justify-content-center border-2 m-1" style="width: 12rem;">',
-                                '<a href="/core/posts/view.php?post_id=' . $post['id'] . '&search='. $searchString . '">',
-                                    '<img class="card-img-top ' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" decoding="async" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">',
-                                    (strtolower($post['extension']) != 'png' && strtolower($post['extension']) != 'jpg' && strtolower($post['extension']) != 'jpeg') ? '<p class="extension-tag">' . $post['extension'] . '</p>'  : '',
-                                '</a>',
-                                '<span style="display: flex; align-items: center; gap: 10px;">',
-                                    '<img src="/static/svg/comment-icon.svg" alt="Description of the icon" width="16" height="16">',
-                                    '<p style="margin: 0;">' . $post['comment_count'] . '</p>',
-
-                                    '<p style="margin: 0;" class="rating-' . $post['rating'] . '">' . get_rating_text($post['rating'], true) . '</p>',
-
-                                    
-                                    is_favourite($post['id'], $_SESSION['user_id']) ? 
-                                    '<a id="removeFavourite" onclick="remove_from_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">
-                                    <img src="/static/svg/heart-fill-icon.svg" alt="Description of the icon" width="16" height="16">
-                                    </a>' 
-                                    : 
-                                    '<a id="addFavourite" onclick="add_to_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">
-                                    <img src="/static/svg/heart-empty-icon.svg" alt="Description of the icon" width="16" height="16" >
-                                    </a>',
-
-                                '</span>',
-                            '</div>'
-                        ];
-              
-                        echo implode('', $cardContent);
+                        echo '<div class="card justify-content-center border-2 m-1" style="width: 12rem;">';
+                        echo '<a href="/core/posts/view.php?post_id=' . $post['id'] . '&search='. $searchString . '">';
+                        echo '<img class="card-img-top ' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" decoding="async" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">';
+                        if (strtolower($post['extension']) != 'png' && strtolower($post['extension']) != 'jpg' && strtolower($post['extension']) != 'jpeg') {
+                            echo '<p class="extension-tag">' . $post['extension'] . '</p>';
+                        }
+                        echo '</a>';
+                        echo '<span style="display: flex; align-items: center; gap: 10px;">';
+                        echo '<img src="/static/svg/comment-icon.svg" alt="Description of the icon" width="16" height="16">';
+                        echo '<p style="margin: 0;">' . $post['comment_count'] . '</p>';
+                        echo '<p style="margin: 0;" class="rating-' . $post['rating'] . '">' . get_rating_text($post['rating'], true) . '</p>';
+                        if (is_favourite($post['id'], $_SESSION['user_id'])) {
+                            echo '<a id="removeFavourite" onclick="remove_from_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
+                            echo '<img src="/static/svg/heart-fill-icon.svg" alt="Description of the icon" width="16" height="16">';
+                            echo '</a>';
+                        } else {
+                            echo '<a id="addFavourite" onclick="add_to_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
+                            echo '<img src="/static/svg/heart-empty-icon.svg" alt="Description of the icon" width="16" height="16">';
+                            echo '</a>';
+                        }
+                        echo '</span>';
+                        echo '</div>';
                     }
                 } else {
                     echo "<p>Error: " . htmlspecialchars($mysqli->error) . "</p>";

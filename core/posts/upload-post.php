@@ -67,6 +67,8 @@ $mime_types = [
     "image/gif",
     "image/png",
     "image/jpeg",
+    "image/webp",
+    "video/webm",
     "video/mp4",
     "video/x-msvideo",
     "video/mpeg",
@@ -76,7 +78,7 @@ $mime_types = [
 ];
 
 
-if ( ! in_array($_FILES["media"]["type"], $mime_types)) {
+if ( ! in_array($mime_type, $mime_types)) {
     exit("Invalid file type");
 } 
 
@@ -169,8 +171,8 @@ $sql = sprintf("SELECT id FROM posts WHERE filehash = '%s' AND uploaded_at = '%s
 
 $result = $mysqli->query($sql);
 
-$postID = ($result->fetch_assoc())['id'];
+$post_id = ($result->fetch_assoc())['id'];
 
 $mysqli->close();
-header('Location: /core/posts/view.php?post_id=' . $postID);
+header('Location: /core/posts/view.php?post_id=' . $post_id);
 exit();

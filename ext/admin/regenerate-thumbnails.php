@@ -22,7 +22,6 @@ foreach ($contents as $item) {
 
             try {
                 compress($imagePath, $_THUMBNAILPATH . $filehash . "-thumb.jpg");
-                $i += 1;
             } catch (Exception $e) {
                 echo "Error compressing image: " . $e->getMessage() . "\n";
             }

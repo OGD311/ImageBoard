@@ -30,6 +30,8 @@ function compress($source, $destination) {
         $image = imagecreatefromgif($source);
     } elseif ($mime_type == 'image/png') {
         $image = imagecreatefrompng($source);
+    } elseif ($mime_type == 'image/webp') {
+        $image = imagecreatefromwebp($source);
     } elseif (strpos($mime_type, 'video/') === 0) { // Check if the MIME type is video
         // Extract the first frame as a JPEG
         $ffmpeg = FFMpeg::create();

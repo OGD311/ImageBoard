@@ -9,14 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     if (isset($_GET['post_id'])) {
 
-        $postId = $mysqli->real_escape_string((int)$_GET['post_id']);
+        $post_id = $mysqli->real_escape_string((int)$_GET['post_id']);
     
         $sql = sprintf(
             "SELECT p.*, u.username 
              FROM posts p 
              LEFT JOIN users u ON p.user_id = u.id 
              WHERE p.id = '%s'",
-            $postId
+            $post_id
         );
     
         $result = $mysqli->query($sql);

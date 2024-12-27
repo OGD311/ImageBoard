@@ -10,12 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         $mysqli->begin_transaction();
     
-        $userId = (int)$_POST['user_id'];
+        $user_id = (int)$_POST['user_id'];
     
 
         $deletePostsSql = "DELETE FROM posts WHERE user_id = ?";
         if ($postsStmt = $mysqli->prepare($deletePostsSql)) {
-            $postsStmt->bind_param("i", $userId);
+            $postsStmt->bind_param("i", $user_id);
             $postsStmt->execute();
             $postsStmt->close();
         } else {
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         $deleteCommentsSql = "DELETE FROM comments WHERE user_id = ?";
         if ($commentsStmt = $mysqli->prepare($deleteCommentsSql)) {
-            $commentsStmt->bind_param("i", $userId);
+            $commentsStmt->bind_param("i", $user_id);
             $commentsStmt->execute();
             $commentsStmt->close();
         } else {
@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         $sql = "DELETE FROM users WHERE id = ?";
         if ($stmt = $mysqli->prepare($sql)) {
-            $stmt->bind_param("i", $userId);
+            $stmt->bind_param("i", $user_id);
             if ($stmt->execute()) {
 
                 $mysqli->commit();
-                if ($_SESSION['user_id'] == $userId) {
+                if ($_SESSION['user_id'] == $user_id) {
                     session_destroy();
                 }
                 header('Location: /core/main.php');

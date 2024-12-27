@@ -8,14 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     if ($stmt = $mysqli->prepare($sql)) {
         
-        $postId = (int)$_POST['post_id'];
-        $userId = (int)$_POST['user_id'];
+        $post_id = (int)$_POST['post_id'];
+        $user_id = (int)$_POST['user_id'];
         $commentID = (int)$_POST['comment_id']; 
 
-        $stmt->bind_param("iii", $commentID, $userId, $postId);
+        $stmt->bind_param("iii", $commentID, $user_id, $post_id);
 
         if ($stmt->execute()) {
-            header('Location: /core/posts/view.php?post_id=' . $postId);
+            header('Location: /core/posts/view.php?post_id=' . $post_id);
             exit(); 
 
         } else {

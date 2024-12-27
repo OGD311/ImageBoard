@@ -33,25 +33,34 @@ function get_posts($search = [], $page = 1, $count = false) {
             continue;
         } 
     
-        // Handle special cases: rating, title, user, and order
+        // Search by rating
         if (preg_match('/rating\s*:\s*\'?(\S+?)\'?/', $term, $matches)) {
             $conditions[] = "p.rating " . ($negation === true ? 'NOT ' : '') . " LIKE '" . $mysqli->real_escape_string(get_rating_value(substr($matches[1], 0))) . "'";
         
+            // Search by title
         } elseif (preg_match('/title\s*:\s*\'?(.+?)(\+|$)/', $term, $matches)) {
             $conditions[] = "p.title " . ($negation === true ? 'NOT ' : '') . " LIKE '" . $mysqli->real_escape_string($matches[1]) . "'";
         
+        // Search by username
         } elseif (preg_match('/user\s*:\s*\'?(.+?)(\+|$)/', $term, $matches)) {
             $conditions[] = "p.user_id " . ($negation === true ? 'NOT ' : '') . " LIKE '" . $mysqli->real_escape_string(get_user_id($matches[1])) . "'";
         
+        // Search by order
         } elseif (preg_match('/order\s*:\s*\'?(.+?)(\+|$)/', $term, $matches)) {
             $order_by = $mysqli->real_escape_string($matches[1]);
         
+        // Search by file extension
         } elseif (preg_match('/ext\s*:\s*\'?(.+?)(\+|$)/', $term, $matches)) {
             $conditions[] = "p.extension " . ($negation === true ? 'NOT ' : '') . "LIKE '" . $mysqli->real_escape_string($matches[1]) . "'";
         
+        } elseif (preg_match('/filetype\s*:\s*\'?(.+?)(\+|$)/', $term, $matches)) {
+            $conditions[] = "p.extension " . ($negation === true ? 'NOT ' : '') . "LIKE '" . $mysqli->real_escape_string($matches[1]) . "'";
+        
+        // Search by height 
         } elseif (preg_match('/height\s*:\s*\'?(.+?)(\+|$)/', $term, $matches)) {
             $conditions[] = "p.file_height " . ($negation === true ? 'NOT ' : '') . " LIKE '" . $mysqli->real_escape_string($matches[1]) . "'";
         
+        // Search by width
         } elseif (preg_match('/width\s*:\s*\'?(.+?)(\+|$)/', $term, $matches)) {
             $conditions[] = "p.file_width " . ($negation === true ? 'NOT ' : '') . " LIKE '" . $mysqli->real_escape_string($matches[1]) . "'";
         

@@ -59,7 +59,7 @@ if (isset($_SESSION['user_id'])) {
 
                     </form>
 
-                    <img id="output" width=400 height=400 style="object-fit: contain;"/>';
+                    <canvas id="output" style="object-fit: contain;"></canvas>';
             
             } else {
                 echo '<p>Uploads are disabled at this time</p>';
@@ -76,11 +76,38 @@ if (isset($_SESSION['user_id'])) {
 
         var loadFile = function(event) {
             var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function() {
-            URL.revokeObjectURL(output.src)
+            output.width = 400;
+            output.height = 400;
+
+            var file = event.target.files[0];
+            var ctx = output.getContext('2d');
+            var url = URL.createObjectURL(file);
+
+            if (file.type.startsWith('image/')) {
+                var img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, output.width, output.height); // Clear canvas
+                    ctx.drawImage(img, 0, 0, output.width, output.height);
+                    URL.revokeObjectURL(img.src);
+                };
+                img.src = url;
+            } else if (file.type.startsWith('video/')) {
+                var video = document.createElement('video');
+                video.src = url;
+
+                video.addEventListener('loadeddata', function() {
+                    video.currentTime = 0; // Set to the start of the video
+                    video.addEventListener('seeked', function drawFrame() {
+                        ctx.clearRect(0, 0, output.width, output.height); // Clear canvas
+                        ctx.drawImage(video, 0, 0, output.width, output.height);
+                        URL.revokeObjectURL(video.src);
+                        video.removeEventListener('seeked', drawFrame); // Cleanup listener
+                    });
+                    video.currentTime = 0; // Trigger the seeked event to draw the first frame
+                });
             }
         };
+
     </script>
 
     <?php include '../html-parts/footer.php'; ?>

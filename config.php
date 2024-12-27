@@ -58,6 +58,10 @@ function post_title($post_id) {
 function get_user_id($username) {
     $mysqli = require __DIR__ . "/storage/database.php";
 
+    if (is_numeric($username)) {
+        return $username;
+    } 
+
     $stmt = $mysqli->prepare("SELECT id FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -81,6 +85,13 @@ function get_user_id($username) {
 
 function get_user_name($user_id) {
     $mysqli = require __DIR__ . "/storage/database.php";
+
+    if (!is_numeric($user_id)) {
+        return $user_id;
+    }
+    if ($user_id < 0) {
+        return '';
+    }
 
     $stmt = $mysqli->prepare("SELECT username FROM users WHERE id = ?");
     $stmt->bind_param("i", $user_id);
