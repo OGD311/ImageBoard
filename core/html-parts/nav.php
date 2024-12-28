@@ -15,40 +15,40 @@ if (isset($_SESSION['user_id'])) {
 }
 
 echo '
-<nav class="navbar">
-    <div class="container-fluid">
-    <ul class="nav nav-pills justify-content-center">
-        <li class="nav-item border rounded d-flex justify-content-center align-items-center"><a class="navbar-brand justify-content-center" href="/index.php"><img src="/static/svg/site-icon.svg" height=16 width=16></a></li>
-        <li class="nav-item border rounded"><a class="nav-link" href="/core/main.php">Home</a></li>';
+<nav >
+    <div >
+    <ul >
+        <li ><a   href="/index.php"><img src="/static/svg/site-icon.svg" height=16 width=16></a></li>
+        <li  ><a   href="/core/main.php">Home</a></li>';
 
 if ($user) {
     if ($GLOBALS['_ALLOW_UPLOADS']) {
-        echo '<li class="nav-item border rounded"><a class="nav-link" href="/core/posts/upload.php">Upload</a></li>';
+        echo '<li  ><a   href="/core/posts/upload.php">Upload</a></li>';
     }
 
 } else {
-    echo '<li class="nav-item border rounded"><a class="nav-link" href="/core/users/login.php">Login</a></li>';
+    echo '<li  ><a  href="/core/users/login.php">Login</a></li>';
     if ($GLOBALS['_ALLOW_SIGNUPS']) {
-        echo '<li class="nav-item border rounded"><a class="nav-link" href="/core/users/signup.php">Register</a></li>';
+        echo '<li  ><a   href="/core/users/signup.php">Register</a></li>';
     }
 }
 
-echo '<li class="nav-item border rounded"><a class="nav-link" href="/core/hide.php">Hide the page! [F9]</a></li>';
+echo '<li  ><a " href="/core/hide.php">Hide the page! [F9]</a></li>';
 
 if ($user) {
     echo '
-    <li class="nav-item dropdown border rounded">
-        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <li >
+        <a   role="button" data-bs-toggle="dropdown" aria-expanded="false">
         ' . htmlspecialchars($user['username']) . '
         </a>
-        <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="/core/users/user.php?user_id=' . ($user['id']) . '">Profile</a></li> ';
+        <ul >
+        <li><a  href="/core/users/user.php?user_id=' . ($user['id']) . '">Profile</a></li> ';
 
         if (is_admin($user['id'])) {
-            echo '<li><a class="dropdown-item" href="/ext/admin/main.php">Admin</a></li>';
+            echo '<li><a  href="/ext/admin/main.php">Admin</a></li>';
         }
-    echo '<li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="../core/users/logout.php">Logout</a></li>
+    echo '<li><hr></li>
+        <li><a  href="../core/users/logout.php">Logout</a></li>
         </ul>
     </li>';
 }
@@ -82,20 +82,20 @@ echo'
 
 </ul>
 
-<form class="d-flex dropdown position-relative" role="search" action="/core/search-posts.php" method="post">
-    <input class="form-control me-2 dropdown-toggle" autocomplete="off" 
+<form role="search" action="/core/search-posts.php" method="post">
+    <input   autocomplete="off" 
        type="search" name="search" id="searchBox" placeholder="Search" 
        value = "' . $searchTerms . '"
        aria-label="Search">
 
 
-    <ul id="autocompleteBox" class="dropdown-menu " aria-labelledby="dropdownMenuButton"></ul>
+    <ul id="autocompleteBox" aria-labelledby="dropdownMenuButton"></ul>
  
-    <button class="btn btn-outline-success" type="submit">Search</button>
+    <button   type="submit">Search</button>
 </form>
 
 </div>';
-echo '<button class="btn btn-dark" id="darkModeToggle">Toggle Dark Mode</button>';
+echo '<button  id="darkModeToggle">Toggle Dark Mode</button>';
 
 echo '
 <script>

@@ -22,11 +22,11 @@ $posts_count_array = str_split((string)$posts_count);
     <body>
         <?php include 'core/html-parts/nav.php'; ?>
 
-        <div class="container-fluid text-center row justify-content-center">
+        <div>
             <?php
             foreach ($posts_count_array as $counter) {
-                echo '<div class="card border-0" style="width: 20%; background: none;">';
-                echo '<img class="" decoding="async" src="/static/images/counter/' . $counter . '.png" alt="Post Image">';
+                echo '<div>';
+                echo '<img decoding="async" src="/static/images/counter/' . $counter . '.png" alt="Post Image">';
                 echo '</div>';
             }
 

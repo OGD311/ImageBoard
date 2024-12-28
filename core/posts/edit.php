@@ -98,14 +98,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         <br>
 
         <div id="tagAutocomplete">
-            <input id="tagSearch" class="form-control me-2 dropdown-toggle" autocomplete="off" type="search" name="tags" placeholder="Enter Tags" 
+            <input id="tagSearch" autocomplete="off" type="search" name="tags" placeholder="Enter Tags" 
                 value="<?= !empty($post['tags']) ? str_replace(', ', ' ', $post['tags']) : '' ?>" 
                 aria-label="Search" style="width: 50%;">
 
-            <ul id="autocompleteBox" class="dropdown-menu " aria-labelledby="dropdownMenuButton"></ul>
+            <ul id="autocompleteBox"  aria-labelledby="dropdownMenuButton"></ul>
         </div>
         
-        <button  class="btn btn-primary">Save</button>
+        <button  >Save</button>
 
     </form>
 
@@ -114,11 +114,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
         <br>
 
-        <button  class="btn btn-danger">Delete Post</button>
+        <button  >Delete Post</button>
     </form>
 
     <br>
-    <a href="/core/posts/view.php?post_id=<?= $post['id'] ?>" class="btn btn-secondary">Close</a>
+    <a href="/core/posts/view.php?post_id=<?= $post['id'] ?>"  >Close</a>
  
     
 </body>

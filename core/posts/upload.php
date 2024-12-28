@@ -38,7 +38,7 @@ if (isset($_SESSION['user_id'])) {
 
             if ($GLOBALS['_ALLOW_UPLOADS']){
                 echo '
-                    <form class="container-fluid" action="upload-post.php" method="post" enctype="multipart/form-data">
+                    <form  action="upload-post.php" method="post" enctype="multipart/form-data">
 
                        
                         <input type="hidden" name="user_id" value="' . $user["id"] . '">
@@ -59,11 +59,11 @@ if (isset($_SESSION['user_id'])) {
                         <label for="tags">Tags</label><br>
                         
                         <div id="tagAutocomplete">
-                            <input id="tagSearch" class="form-control me-2 dropdown-toggle" autocomplete="off" type="search" name="tags" placeholder="Enter Tags" 
+                            <input id="tagSearch"  autocomplete="off" type="search" name="tags" placeholder="Enter Tags" 
                                 value="' . $searchTerms . '" 
                                 aria-label="Search" style="width: 50%;">
 
-                            <ul id="autocompleteBox" class="dropdown-menu " aria-labelledby="dropdownMenuButton"></ul>
+                            <ul id="autocompleteBox"  aria-labelledby="dropdownMenuButton"></ul>
                         </div>
 
                         <br>

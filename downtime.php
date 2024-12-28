@@ -26,7 +26,7 @@ if (isset($GLOBALS['_SITE_DOWNTIME_MESSAGE'])) {
 
     <body>
 
-        <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+        <div>
             <h1>Site is down</h1>
             <h3>Check back later</h3>
 

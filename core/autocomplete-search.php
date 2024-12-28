@@ -32,19 +32,19 @@ if (!empty($_POST["word"])) {
             if ($alias) { 
                 echo '
                 <li onclick="remove_from_search(\'' . htmlspecialchars($_POST["word"]) . '\', this); add_to_search(\'' . htmlspecialchars($alias['name']) . '\', true, this);">
-                <a class="dropdown-item">' . str_replace('_', ' ', htmlspecialchars($tag["name"])) . ' -> ' . str_replace('_', ' ', htmlspecialchars($alias["name"])) . '</a>
+                <a>' . str_replace('_', ' ', htmlspecialchars($tag["name"])) . ' -> ' . str_replace('_', ' ', htmlspecialchars($alias["name"])) . '</a>
                 </li>';
             } else { 
                 echo '
                 <li onclick="remove_from_search(\'' . htmlspecialchars($_POST["word"]) . '\', this); add_to_search(\'' . htmlspecialchars($tag['name']) . '\', true, this);">
-                <a class="dropdown-item">' . str_replace('_', ' ', htmlspecialchars($tag["name"])) . '</a>
+                <a>' . str_replace('_', ' ', htmlspecialchars($tag["name"])) . '</a>
                 </li>'; 
             }
             }
         } else { 
             echo '
             <li>
-                <a class="dropdown-item">No tags found</a>
+                <a>No tags found</a>
             </li>';
         }
  
@@ -53,7 +53,7 @@ if (!empty($_POST["word"])) {
     } else {
         echo '
         <li>
-            <a class="dropdown-item">Error preparing statement: ' . $mysqli->error . '</a>
+            <a>Error preparing statement: ' . $mysqli->error . '</a>
         </li>
         ';
     }

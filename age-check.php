@@ -14,14 +14,14 @@ require_once 'config.php';
 
 <body>
 
-    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="border border-black p-4 text-center">
-            <p>You must be over the age of 18 and agree to the <a href="#" class="text-blue">terms and conditions</a> to access this page.</p>
-            <button id="agreeBtn" class="btn btn-success ">
-                I agree to the <a href="#" class="text-white">terms and conditions</a>
+    <div style="height: 100vh;">
+        <div>
+            <p>You must be over the age of 18 and agree to the <a href="#" >terms and conditions</a> to access this page.</p>
+            <button id="agreeBtn" >
+                I agree to the <a href="#" >terms and conditions</a>
             </button>
-            <button id="disagreeBtn" class="btn btn-secondary">
-                I do not agree to the <a href="#" class="text-white">terms and conditions</a>
+            <button id="disagreeBtn" >
+                I do not agree to the <a href="#" >terms and conditions</a>
             </button>
         </div>
     </div>

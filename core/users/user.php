@@ -93,12 +93,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     <h3><?= get_display_name($userData['id'])?></h3>
         <p><?= get_bio($userData['id'])?></p>
         <?php if (!empty($_SESSION['user_id']) && ($userData['id'] == $_SESSION['user_id'] || is_admin($_SESSION['user_id']))) : ?>
-        <a class="btn btn-danger" href=./profiles/edit-profile.php>Edit Profile</a>
+        <a  href=./profiles/edit-profile.php>Edit Profile</a>
         <?php endif; ?>
     </div>
 
     <h2><?= $userData['username'] ?>'s latest Posts</h2>
-    <div id="posts" class="container-fluid text-center row justify-content-center">
+    <div id="posts" >
         <?php
 
             if ($postsData) {
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                     }
                     
                     echo '
-                        <div class="card justify-content-center border-2 m-1" style="width: 12rem;">
+                        <div >
                         <a href="/core/posts/view.php?post_id=' . $post['id'] . '">
                         <img class="card-img-top ' . $apply_blur . '" src="/storage/thumbnails/' . htmlspecialchars($post['filehash']) . "-thumb.jpg" . '" alt="Post Image" width=200 height=200 style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;">
                         </a>

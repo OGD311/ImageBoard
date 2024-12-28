@@ -58,13 +58,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 <body>
     <?php include '../html-parts/nav.php'; ?>
 
-    <div class="contain">
+    <div >
         
-        <div class="left-div">
+        <div  >
             <?php include '../tags/tag-view.php'; ?>
             <hr>
             <h4>Details</h4>
-            <div id="details" class="">
+            <div  >
                 <ul>
                     <p>Uploaded on: <br><?= date("d/m/Y", $post['uploaded_at']) ?></p>
                         
