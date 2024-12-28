@@ -86,11 +86,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         
         <br>
 
-        <div id="headings" class="contain container-fluid d-flex justify-content-between align-items-center">
+        <div id="headings">
             
-            <h1 class="mb-0">Latest Posts</h1>
+            <h1>Latest Posts</h1>
 
-            <form name="order_by" class="d-flex">
+            <form name="order_by">
                 <label for="sort-options">Sort posts by:</label>
                 <select id="sort-options" style="margin-left: 10px;" onchange="sort_posts(this.value, '<?= $searchString ?>')">
                     <option value="upload-desc" <?= ($order_by == 'upload-desc') ? 'selected' : '' ?>>Upload date ↑</option>
@@ -108,14 +108,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         </div>
         <br>
 
-        <div class='contain'>
+        <div>
 
-        <div class="left-div">
+        <div>
             <?php include 'tags/tag-all.php'; ?>
         </div>
 
 
-        <div id="posts" class="right-div container-main text-center row justify-content-center">
+        <div id="posts">
             <?php
             
                 if ($result) {
@@ -126,11 +126,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         $filehash = htmlspecialchars($post['filehash']);
                         $imageSrc = "/storage/thumbnails/{$filehash}-thumb.jpg";
                         
-                        echo '<div class="card justify-content-center border-2 m-1" style="width: 12rem;">';
+                        echo '<div>';
                         echo '<a href="/core/posts/view.php?post_id=' . $post['id'] . '&search='. $searchString . '">';
-                        echo '<img class="card-img-top ' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">';
+                        echo '<img class="' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">';
                         if (strtolower($post['extension']) != 'png' && strtolower($post['extension']) != 'jpg' && strtolower($post['extension']) != 'jpeg') {
-                            echo '<p class="extension-tag">' . $post['extension'] . '</p>';
+                            echo '<p>' . $post['extension'] . '</p>';
                         }
                         echo '</a>';
                         echo '<span style="display: flex; align-items: center; gap: 10px;">';
@@ -171,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         
         <br>
 
-        <div id="pages-buttons" class="container-fluid text-center row justify-content-center">
+        <div id="pages-buttons">
 
             <?php
 

@@ -28,7 +28,7 @@ if ($result) {
 
     echo '<ul>';
     foreach ($tags as $tag) {
-        echo '<div class="tag"> <p>';
+        echo '<div  > <p>';
         
         $alias = get_alias($tag['id']) ? get_alias($tag['id']) : null;
 

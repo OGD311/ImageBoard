@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 echo '
-<nav >
+<nav>
     <div >
     <ul >
         <li ><a   href="/index.php"><img src="/static/svg/site-icon.svg" height=16 width=16></a></li>

@@ -19,13 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
 
 }
-    echo '<div class="comments">';
+    echo '<div>';
     echo '<h3>Comments: ('. $post['comment_count'] . ')</h3>';
 
     if ($result) {
 
         foreach ($comments as $comment) {
-            echo '<div class="comment"> <p>';
+            echo '<div> <p>';
             echo '<span><strong><a href="../users/user.php?user_id=' . $comment['user_id'] . '">' . htmlspecialchars($comment['username']) . ': </a></strong></span>';
             echo '<span>' . htmlspecialchars($comment['comment']) . ' - </span>';
             echo '<span>' . date("d/m/y h:i a", $comment['posted_at']) . '</span>';

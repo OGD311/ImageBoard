@@ -83,14 +83,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                     <p>Post ID: <?= $post['id'] ?></p>
 
                     <?php if (!empty($_SESSION['user_id']) && ($uploader['id'] == $_SESSION['user_id'] || is_admin($_SESSION['user_id']))) : ?>
-                        <button class="btn btn-secondary" onclick="location.href='edit.php?post_id=<?= $post['id'] ?>'">Edit Post</button>
+                        <button  onclick="location.href='edit.php?post_id=<?= $post['id'] ?>'">Edit Post</button>
 
                         <form action="delete-post.php" method="post" onsubmit="return confirm('Delete Post?');">
                             <input type="hidden" name="user_id" value="<?= $uploader['id'] ?>">
                             <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
                             <br>
 
-                            <button  class="btn btn-danger">Delete Post</button>
+                            <button   >Delete Post</button>
                         </form>
                     <?php endif ?>
 
@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             <hr>
         </div>
 
-        <div class="right-div container-fluid text-center justify-content-center">
+        <div  >
             <h1><?= $post['title'] ?></h1>
             <?php
                 $fileType = $post['extension']; // Assuming extension is already provided in the array

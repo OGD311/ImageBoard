@@ -27,7 +27,7 @@ if (isset($_SESSION['user_id'])) {
 
             if ($GLOBALS['_ALLOW_UPLOADS']){
                 echo '
-                <form action="process-signup.php" class="user-form" method="post" id="signup">
+                <form action="process-signup.php"   method="post" id="signup">
                     <div>
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username">

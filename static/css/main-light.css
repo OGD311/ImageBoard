@@ -4,14 +4,31 @@
     --heading-margin-left: 0.2em;
 }
 
-body {
-    background-color: var(--background-color);
-}
-
-body h1 {
-    margin-left: 0.2em;
-}
+@font-face {
+    font-family: 'LexandDeca';
+    src: url('static/fonts/LexendDeca-VariableFont_wght.ttf') format('ttf'),
+    url('static/fonts/LexendDeca-VariableFont_wght.ttf') format('ttf');
+    }
 
 html * {
     color: var(--text-color);
+    font-family: 'LexandDeca', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+
+/**** NAV ****/
+nav {
+
+}
+
+nav > ul {
+    display: inline;
+    list-style: none;
 }
