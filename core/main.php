@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $total_posts = $result['total_posts'];
         $number_of_pages = number_of_pages($total_posts);
 
-        $seconds_until_timeout = (int)(($_REDISTIMEOUT / count($searchList) + ($order_by != 'upload-desc' ? 0 : 100) + ($number_of_pages - $current_page_number)) / 100);
+        $seconds_until_timeout = (int)(($_REDISTIMEOUT * count($searchList) + ($order_by != 'upload-desc' ? 0 : 5) + ($number_of_pages - $current_page_number)) / 100);
         $redis->set($cacheKey, serialize($result), 'EX', $seconds_until_timeout);
 
     }
@@ -78,8 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     <head>
         <title>Posts</title>
         <?php include 'html-parts/header-elems.php' ?>
-        <link rel="stylesheet" href="/static/css/ratings.css">
-        <link rel="stylesheet" href="/static/css/tags.css">
         <meta charset="UTF-8">
     </head>
 

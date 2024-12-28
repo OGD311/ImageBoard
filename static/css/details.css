@@ -1,17 +1,3 @@
-body {
-    /* background-image: url('../images/background(32).png'); */
-
-    background-color: lightgreen;
-}
-
-body h1 {
-    margin-left: 0.2em;
-}
-
-html * {
-    color: #3b3939;
-}
-
 .card {
     background-color: lightgreen;
 }

@@ -1,0 +1,17 @@
+:root {
+    --background-color: darkgreen;
+    --text-color: #bdb9b9;
+    --heading-margin-left: 0.2em;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+body h1 {
+    margin-left: 0.2em;
+}
+
+html * {
+    color: var(--text-color);
+}

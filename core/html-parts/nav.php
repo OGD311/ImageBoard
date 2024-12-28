@@ -94,8 +94,20 @@ echo'
     <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
 
-</div>
+</div>';
+echo '<button class="btn btn-dark" id="darkModeToggle">Toggle Dark Mode</button>';
+
+echo '
 <script>
+    document.getElementById("darkModeToggle").addEventListener("click", function() {
+        if (document.cookie.includes("darkmode=true")) {
+            document.cookie = "darkmode=false; path=/";
+        } else {
+            document.cookie = "darkmode=true; path=/";
+        }
+        location.reload();
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
         const searchBox = document.querySelector("#searchBox");
         if (searchBox) {
