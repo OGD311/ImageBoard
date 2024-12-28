@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+require 'process-tags.php';
 
 $mysqli = $_DB; 
 
@@ -29,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $stmt->bind_param("siiii", $title, $rating, $updatedAt, $post_id, $user_id);
 
+    reset_tags($post_id);
+    post_tags($post_id, $_POST['tags']);
 
     if ($stmt->execute()) {
         $mysqli->close();

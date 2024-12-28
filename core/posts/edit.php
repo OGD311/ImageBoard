@@ -12,10 +12,23 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $post_id = $mysqli->real_escape_string((int)$_GET['post_id']);
     
         $sql = sprintf(
-            "SELECT p.*, u.username 
-             FROM posts p 
-             LEFT JOIN users u ON p.user_id = u.id 
-             WHERE p.id = '%s'",
+            "SELECT 
+                p.*, 
+                u.username, 
+                GROUP_CONCAT(t.name SEPARATOR ', ') as tags
+            FROM 
+                posts p
+            LEFT JOIN 
+                post_tags pt ON p.id = pt.post_id
+            LEFT JOIN 
+                tags t ON pt.tag_id = t.id
+            LEFT JOIN 
+                users u ON p.user_id = u.id
+            WHERE 
+                p.id = '%s'
+            GROUP BY 
+                p.id, u.id;
+            ",
             $post_id
         );
     
@@ -83,6 +96,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         </select>
 
         <br>
+
+        <div id="tagAutocomplete">
+            <input id="tagSearch" class="form-control me-2 dropdown-toggle" autocomplete="off" type="search" name="tags" placeholder="Enter Tags" 
+                value="<?= str_replace(', ', ' ', $post['tags']) ?>" 
+                aria-label="Search" style="width: 50%;">
+
+            <ul id="autocompleteBox" class="dropdown-menu " aria-labelledby="dropdownMenuButton"></ul>
+        </div>
         
         <button  class="btn btn-primary">Save</button>
 
@@ -103,5 +124,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 </body>
 
     <?php include '../html-parts/footer.php'; ?>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchBox = document.querySelector("#tagSearch");
+            if (searchBox) {
+                autocomplete(searchBox);
+            }
+        });
+    </script>
 
 </html>

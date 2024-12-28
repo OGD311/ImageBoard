@@ -54,8 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $total_posts = $result['total_posts'];
         $number_of_pages = number_of_pages($total_posts);
 
-        $seconds_until_timeout = $_REDISTIMEOUT / count($searchList) + ($order_by != 'upload-desc' ? 0 : 100) + ($number_of_pages - $current_page_number);
-        $redis->set($cacheKey, serialize($result));
+        $seconds_until_timeout = (int)(($_REDISTIMEOUT / count($searchList) + ($order_by != 'upload-desc' ? 0 : 100) + ($number_of_pages - $current_page_number)) / 100);
+        $redis->set($cacheKey, serialize($result), 'EX', $seconds_until_timeout);
+
     }
 
     
