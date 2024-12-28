@@ -25,13 +25,13 @@ function compress($source, $destination) {
 
     // Handling images
     if ($mime_type == 'image/jpeg') {
-        $image = imagecreatefromjpeg($source);
+        $image = @imagecreatefromjpeg($source);
     } elseif ($mime_type == 'image/gif') {
-        $image = imagecreatefromgif($source);
+        $image = @imagecreatefromgif($source);
     } elseif ($mime_type == 'image/png') {
-        $image = imagecreatefrompng($source);
+        $image = @imagecreatefrompng($source);
     } elseif ($mime_type == 'image/webp') {
-        $image = imagecreatefromwebp($source);
+        $image = @imagecreatefromwebp($source);
     } elseif (strpos($mime_type, 'video/') === 0) { // Check if the MIME type is video
         // Extract the first frame as a JPEG
         $ffmpeg = FFMpeg::create();

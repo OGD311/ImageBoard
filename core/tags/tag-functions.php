@@ -41,6 +41,19 @@ function get_tag_name($tag_id) {
     return isset($row) ? $row['name'] : null;
 }
 
+function create_tag($tag) {
+    $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
+
+    $sql = "INSERT INTO tags (name, created_at) VALUES (?, ?)";
+
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("si", $tag, time());
+    $stmt->execute();
+    $stmt->close();
+
+    return $mysqli->insert_id;
+}
+
 
 function get_alias($tag) {
     $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";

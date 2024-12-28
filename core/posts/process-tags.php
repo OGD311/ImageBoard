@@ -49,6 +49,9 @@ function post_tags($post_id, $tags) {
         } else {
             // Handle tags
             $tag = get_tag_id($term);
+            if (!$tag) {
+                $tag = create_tag($term);
+            }
             $sql = "INSERT INTO post_tags (post_id, tag_id) VALUES (?, ?)";
             $stmt = $mysqli->stmt_init();
             $stmt->prepare($sql);
