@@ -48,11 +48,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute();
         $stmt->close();
 
+        header("Location: recount-tags.php");
+        exit();
+
     } else {
         $stmt = $mysqli->prepare("DELETE FROM tag_aliases WHERE new_tag = ? AND old_tag = ?");
         $stmt->bind_param("ss", $delete_id[0], $delete_id[1]);
         $stmt->execute();
         $stmt->close();
+
+        header("Location: recount-tags.php");
+        exit();
     }
     header("Location: aliases.php");
     exit();
