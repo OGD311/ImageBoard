@@ -1,6 +1,47 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
+function get_tag_id($tag) {
+    if (is_numeric($tag)) {
+        return $tag;
+    }
+
+    $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
+
+    $sql = "SELECT id FROM tags WHERE name = ?";
+
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("s", $tag);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $row = $result->fetch_assoc();
+    $stmt->close();
+
+    return isset($row) ? $row['id'] : null;
+}
+
+function get_tag_name($tag_id) {
+    if (!is_numeric($tag_id)) {
+        return $tag_id;
+    }
+
+    $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
+
+    $sql = "SELECT name FROM tags WHERE id = ?";
+
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("i", $tag_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $row = $result->fetch_assoc();
+    $stmt->close();
+
+    return isset($row) ? $row['name'] : null;
+}
+
+
 function get_alias($tag) {
     $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
 

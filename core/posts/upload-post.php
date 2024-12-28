@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require 'compress-image.php';
+require 'process-tags.php';
 
 
 require '../../vendor/autoload.php';
@@ -166,14 +167,14 @@ $stmt->execute();
 
 compress($destination, $_THUMBNAILPATH . $filehash . "-thumb.jpg");
 
+$post_id = $mysqli->insert_id;
+
+$stmt->close();
+$mysqli->close();
+// Process tags
+post_tags($post_id, $_POST['tags']);
+
 // Redirect to new post
 
-$sql = sprintf("SELECT id FROM posts WHERE filehash = '%s' AND uploaded_at = '%s'", $filehash, $uploaded_at);
-
-$result = $mysqli->query($sql);
-
-$post_id = ($result->fetch_assoc())['id'];
-
-$mysqli->close();
 header('Location: /core/posts/view.php?post_id=' . $post_id);
 exit();
