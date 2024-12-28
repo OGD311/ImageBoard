@@ -1,36 +1,26 @@
-$(document).ready(function() {
-
-    $("#searchBox").keyup(function() {
-        let inputVal = $(this).val();
+export function autocomplete(element) {
+    element.addEventListener("keyup", function () {
+        let inputVal = element.value;
         if (inputVal === "" || inputVal.endsWith(" ")) {
-            $("#autocompleteBox").hide(); // Hide the box if no input or if the last character is a space
+            element.parentElement.querySelector("#autocompleteBox").style.display = "none";
         } else {
             let search = inputVal.trim().split(" ");
-            let lastWord = search.pop(); // Get the last word
+            let lastWord = search.pop();
             
-            $.ajax({
-                type: "POST",
-                url: "/core/autocomplete-search.php",
-                data: 'word=' + lastWord + '&search=' + search,
-                beforeSend: function() {
-                    // Add a loader or pre-request action if needed
-                },
-                success: function(data) {
-                    $("#autocompleteBox").show(); // Show the box with suggestions
-                    $("#autocompleteBox").html(data); // Display the results
-                    $("#searchBox").css("background", "#FFF");
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "/core/autocomplete-search.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    element.parentElement.querySelector("#autocompleteBox").style.display = "block";
+                    element.parentElement.querySelector("#autocompleteBox").innerHTML = xhr.responseText;
+                    element.style.background = "#FFF";
                 }
-            });
+            };
+            xhr.send('word=' + lastWord + '&search=' + search.join(" "));
         }
     });
-
-});
-
-// To select a tag
-function selectTag(val) {
-    let inputVal = $("#searchBox").val();
-    let words = inputVal.split(" ");
-    words.pop(); // Remove the last word
-    words.push(val); // Add the selected value
-    $("#searchBox").val(words.join(" ") + " "); // Add a space after the selected word
 }
+
+// Attach the function to the window object
+window.autocomplete = autocomplete;

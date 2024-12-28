@@ -83,9 +83,11 @@ echo'
 </ul>
 
 <form class="d-flex dropdown position-relative" role="search" action="/core/search-posts.php" method="post">
-    <input class="form-control me-2 dropdown-toggle" autocomplete="off" type="search" name="search" id="searchBox" placeholder="Search" 
-           value="'. $searchTerms . '" 
-           aria-label="Search">
+    <input class="form-control me-2 dropdown-toggle" autocomplete="off" 
+       type="search" name="search" id="searchBox" placeholder="Search" 
+       value = "' . $searchTerms . '"
+       aria-label="Search">
+
 
     <ul id="autocompleteBox" class="dropdown-menu " aria-labelledby="dropdownMenuButton"></ul>
  
@@ -93,5 +95,13 @@ echo'
 </form>
 
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchBox = document.querySelector("#searchBox");
+        if (searchBox) {
+            autocomplete(searchBox);
+        }
+    });
+</script>
 </nav>';
 ?>

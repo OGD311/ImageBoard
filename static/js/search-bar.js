@@ -28,8 +28,8 @@ export function add_and_search(tag, include) {
     return "";
 }
 
-export function add_to_search(tag, include) { 
-    const currentSearch = document.getElementById("searchBox").value || '';
+export function add_to_search(tag, include, element) { 
+    const currentSearch = element.parentElement.parentElement.querySelector("input").value || '';
 
     let tagLook;
     if (include) {
@@ -49,16 +49,15 @@ export function add_to_search(tag, include) {
     const newSearch = updatedSearch ? `${updatedSearch} ${tag}` : tag;
 
  
-    document.getElementById("searchBox").value = newSearch;
-
-    console.log(newSearch);
+    element.parentElement.parentElement.querySelector("input").value = newSearch;
+    
 
 
     return "";
 }
 
-export function remove_from_search(tag) { 
-    const currentSearch = document.getElementById("searchBox").value || '';
+export function remove_from_search(tag, element) { 
+    const currentSearch = element.parentElement.parentElement.querySelector("input").value || '';
 
     const updatedSearch = currentSearch 
         .replace(new RegExp(`(?:[^\\w]|\\b)${tag}\\b(?!\\w)`, 'g'), '')
@@ -69,9 +68,7 @@ export function remove_from_search(tag) {
     const newSearch = updatedSearch;  
 
  
-    document.getElementById("searchBox").value = newSearch;
-
-    console.log(newSearch);
+    element.parentElement.parentElement.querySelector("input").value = newSearch;
 
 
     return "";

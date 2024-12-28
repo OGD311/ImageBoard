@@ -54,8 +54,22 @@ if (isset($_SESSION['user_id'])) {
                             <option value="1">Questionable</option>
                             <option value="2" selected>Explicit</option>
                         </select>
+                        <br>
 
+                        <label for="tags">Tags</label><br>
+                        
+                        <div id="tagAutocomplete">
+                            <input id="tagSearch" class="form-control me-2 dropdown-toggle" autocomplete="off" type="search" name="search" id="searchBox" placeholder="Search" 
+                                value="' . $searchTerms . '" 
+                                aria-label="Search" style="width: 50%;">
+
+                            <ul id="autocompleteBox" class="dropdown-menu " aria-labelledby="dropdownMenuButton"></ul>
+                        </div>
+
+                        <br>
+            
                         <button onClick="this.form.submit(); this.disabled=true;" >Upload</button>
+            
 
                     </form>
 
@@ -67,6 +81,13 @@ if (isset($_SESSION['user_id'])) {
         ?>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchBox = document.querySelector("#tagSearch");
+            if (searchBox) {
+                autocomplete(searchBox);
+            }
+        });
+
         function updateTitle() {
             const files = event.target.files;
             const fileName = files[0].name.replace(/\.[^/.]+$/, "");
