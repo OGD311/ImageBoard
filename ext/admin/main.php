@@ -80,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="recount-tags.php">Recount Tags</a></li>
         <li><a href="sql-test.php" onclick="return confirmWarning();">SQL Test</a></li>
         <li><a href="shuffle-ids.php">Shuffle IDs</a></li>
+        <li><a href="aliases.php">Tag aliases</a></li>
         <br>
         <li>
             <form method="post" action="main.php">

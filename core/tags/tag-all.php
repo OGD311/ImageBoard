@@ -28,16 +28,25 @@ if ($result) {
         $alias = get_alias($tag['id']) ? get_alias($tag['id']) : null;
 
         if ($alias) {
-            echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($alias['name']) . '\', true)">+</a> <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($alias['name']) . '\', false)">-</a></span> ' .  str_replace('_', ' ', htmlspecialchars($tag['name'])) . ' (' . htmlspecialchars($tag['count']) . ') -> ' .str_replace('_', ' ', htmlspecialchars($alias['name'])) . ' (' . htmlspecialchars($alias['count']) . ')';
+            if (!in_array($alias['id'], array_column($tags, 'id'))) {
+                echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($alias['name']) . '\', true)">+</a> 
+                    <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($alias['name']) . '\', false)">-</a></span> 
+                    ' . str_replace('_', ' ', htmlspecialchars($alias['name'])) . ' (' . htmlspecialchars($alias['count']) . ')';
+            }
+            
+            $tags = array_filter($tags, function($value) use ($alias) {
+                return $value['id'] != $alias['id'];
+            });
         } else {
-            echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($tag['name']) . '\', true)">+</a> <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($tag['name']) . '\', false)">-</a></span> ' .  str_replace('_', ' ', htmlspecialchars($tag['name'])) . ' (' . htmlspecialchars($tag['count']) . ')';
+            echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($tag['name']) . '\', true)">+</a> 
+                <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($tag['name']) . '\', false)">-</a></span> 
+                ' . str_replace('_', ' ', htmlspecialchars($tag['name'])) . ' (' . htmlspecialchars($tag['count']) . ')';
         }
 
         echo '</li>';
 
         echo '</p></div>';
-        }
-
+    }
 
     if ((count($tags)) == 0) {
         echo '<p>No tags to display!</p>'; 

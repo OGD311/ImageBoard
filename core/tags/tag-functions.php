@@ -41,17 +41,52 @@ function get_tag_name($tag_id) {
     return isset($row) ? $row['name'] : null;
 }
 
-function create_tag($tag) {
+function get_tag_count($tag) {
     $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
 
-    $sql = "INSERT INTO tags (name, created_at) VALUES (?, ?)";
-
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("si", $tag, time());
+    if (is_numeric($tag)) {
+        $sql = "SELECT count FROM tags WHERE id = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("i", $tag);
+    } else {
+        $sql = "SELECT count FROM tags WHERE name = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("s", $tag);
+    }
+    
     $stmt->execute();
+    $result = $stmt->get_result();
+
+    $row = $result->fetch_assoc();
     $stmt->close();
 
-    return $mysqli->insert_id;
+    return isset($row) ? $row['count'] : 0;
+}
+
+function create_tag($tag, $count=0) {
+    $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
+    
+    if ($count > 0) {
+        $sql = "INSERT INTO tags (name, count, created_at) VALUES (?, ?, ?)";
+        $stmt = $mysqli->prepare($sql);
+        $current_time = time();
+        $stmt->bind_param("sii", $tag, $count, $current_time);
+        $stmt->execute();
+        $stmt->close();
+
+        return $mysqli->insert_id;
+    } else {
+        $sql = "INSERT INTO tags (name, created_at) VALUES (?, ?)";
+
+        $stmt = $mysqli->prepare($sql);
+        $current_time = time();
+        $stmt->bind_param("si", $tag, $current_time);
+        $stmt->execute();
+        $stmt->close();
+
+        return $mysqli->insert_id;
+
+    }
 }
 
 
