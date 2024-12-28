@@ -24,8 +24,10 @@ $GLOBALS['_COMMENT_CHARACTER_LIMIT'] = 256;
 // Redis
 use Predis\Client as Redis;
 $redis = new Redis();
+$pubsub = new Redis();
 $redis->connect('localhost', 6379);
 $GLOBALS['_REDIS'] = $redis;
+$GLOBALS['_PUBSUB'] = $pubsub;
 $GLOBALS['_REDISTIMEOUT'] = 300;
 
 // General functions

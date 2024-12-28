@@ -89,7 +89,58 @@ function create_tag($tag, $count=0) {
     }
 }
 
+function recount_tags() {
+    $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
 
+    $sql = "DELETE FROM post_tags WHERE post_id NOT IN (SELECT id FROM posts);";
+    $stmt = $mysqli->prepare($sql);
+    if ($stmt) {
+        $stmt->execute();
+    } else {
+        exit($mysqli->error);
+    }
+
+    $sql = "
+        UPDATE tags
+        SET count = (
+            SELECT COUNT(*)
+            FROM post_tags
+            WHERE post_tags.tag_id = tags.id
+        );
+    ";
+    $stmt = $mysqli->prepare($sql);
+    if ($stmt) {
+        $stmt->execute();
+    } else {
+        exit($mysqli->error);
+    }
+
+    $sql = "
+        CREATE TEMPORARY TABLE temp_tag_counts AS
+        SELECT ta.new_tag AS tag_id, t.count AS count
+        FROM tags t
+        JOIN tag_aliases ta ON t.id = ta.old_tag;
+    ";
+    $stmt = $mysqli->prepare($sql);
+    if ($stmt) {
+        $stmt->execute();
+    } else {
+        exit($mysqli->error);
+    }
+
+    $sql = "
+        UPDATE tags
+        JOIN temp_tag_counts ON tags.id = temp_tag_counts.tag_id
+        SET tags.count = temp_tag_counts.count;
+    ";
+    $stmt = $mysqli->prepare($sql);
+    if ($stmt) {
+        $stmt->execute();
+    } else {
+        exit($mysqli->error);
+    }
+
+}
 function get_alias($tag) {
     $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
 

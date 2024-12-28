@@ -37,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     } else {
         $current_page_number = 1;
     }
-    
+
+    // Retrieve posts from cache if available
     $cacheKey = 'page_posts_' . $current_page_number . '_' . $searchString . '_' . $order_by;
     $cachedResult = $redis->get($cacheKey);
 
@@ -58,8 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $redis->set($cacheKey, serialize($result), 'EX', $seconds_until_timeout);
 
     }
-
-    
 
     if ($current_page_number > $number_of_pages) {
         header('Location: main.php?page='. $number_of_pages .'&search=' . $_GET['search']);

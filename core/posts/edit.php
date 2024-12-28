@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         <div id="tagAutocomplete">
             <input id="tagSearch" class="form-control me-2 dropdown-toggle" autocomplete="off" type="search" name="tags" placeholder="Enter Tags" 
-                value="<?= str_replace(', ', ' ', $post['tags']) ?>" 
+                value="<?= !empty($post['tags']) ? str_replace(', ', ' ', $post['tags']) : '' ?>" 
                 aria-label="Search" style="width: 50%;">
 
             <ul id="autocompleteBox" class="dropdown-menu " aria-labelledby="dropdownMenuButton"></ul>
