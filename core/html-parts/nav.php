@@ -16,7 +16,6 @@ if (isset($_SESSION['user_id'])) {
 
 echo '
 <nav>
-    <div >
     <ul >
         <li ><a   href="/index.php"><img src="/static/svg/site-icon.svg" height=16 width=16></a></li>
         <li  ><a   href="/core/main.php">Home</a></li>';
@@ -37,11 +36,11 @@ echo '<li  ><a " href="/core/hide.php">Hide the page! [F9]</a></li>';
 
 if ($user) {
     echo '
-    <li >
-        <a   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <li  class="dropdown">
+        <a role="button" data-bs-toggle="dropdown" aria-expanded="false">
         ' . htmlspecialchars($user['username']) . '
         </a>
-        <ul >
+        <ul class="dropdown-menu">
         <li><a  href="/core/users/user.php?user_id=' . ($user['id']) . '">Profile</a></li> ';
 
         if (is_admin($user['id'])) {
@@ -89,13 +88,12 @@ echo'
        aria-label="Search">
 
 
-    <ul id="autocompleteBox" aria-labelledby="dropdownMenuButton"></ul>
+    <ul class="dropdown-menu" id="autocompleteBox" aria-labelledby="dropdownMenuButton"></ul>
  
-    <button   type="submit">Search</button>
+    <button type="submit">Search</button>
 </form>
 
-</div>';
-echo '<button  id="darkModeToggle">Toggle Dark Mode</button>';
+<button  id="darkModeToggle">Toggle Dark Mode</button>';
 
 echo '
 <script>

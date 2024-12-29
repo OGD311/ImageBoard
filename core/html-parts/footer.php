@@ -19,12 +19,12 @@ $statistics = array_merge($statistics, $mysqliStatistics);
 
 echo <<<EOF
 <br>
-<div>
+<footer>
     <span>
         Total Queries: {$statistics['Questions']}
         Bytes S/R: {$statistics['bytes_sent']} / {$statistics['bytes_received']} 
         Total Connections: {$statistics['Connections']}
         Slow Queries: {$statistics['Slow_queries']}
     </span>
-</div>
+</footer>
 EOF;

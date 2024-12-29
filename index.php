@@ -24,20 +24,40 @@ $posts_count_array = str_split((string)$posts_count);
 
         <div>
             <?php
+            echo '<div class="counter">';
             foreach ($posts_count_array as $counter) {
-                echo '<div>';
-                echo '<img decoding="async" src="/static/images/counter/' . $counter . '.png" alt="Post Image">';
-                echo '</div>';
+                echo '<img src="/static/images/counter/' . $counter . '.png" alt="Post Image">';
             }
+            echo '</div>';
 
             ?>
-            <?php if ($posts_count > 1 || $posts_count == 0): ?>
-                <p>Currently serving: <?= $posts_count ?> posts</p>
-            <?php else: ?>
-                <p>Currently serving: <?= $posts_count ?> post</p>
-            <?php endif; ?>
+            <div class="site-details">
+
+                <?php if ($posts_count > 1 || $posts_count == 0): ?>
+                    <p>Currently serving: <?= $posts_count ?> posts</p>
+                <?php else: ?>
+                    <p>Currently serving: <?= $posts_count ?> post</p>
+                <?php endif; ?>
+
+                
+                <form role="search" action="/core/search-posts.php" method="post">
+                    <input id="mainSearch"  autocomplete="off" type="search" name="search" placeholder="Enter Tags" value="" aria-label="Search" style="width: 50%;">
+                    <ul id="autocompleteBox"  aria-labelledby="dropdownMenuButton"></ul>
+                    <button type="submit">Search</button>
+                </form>
+            
+            </div>
 
         </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const searchBox = document.querySelector("#mainSearch");
+                if (searchBox) {
+                    autocomplete(searchBox);
+                }
+            });
+        </script>
 
 
         <?php include 'core/html-parts/footer.php'; ?>
