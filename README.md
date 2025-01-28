@@ -23,13 +23,15 @@ A simple ImageBoard, written in PHP, based on shimmieV2
   - Title
   - Descriptions (filetype, date, etc)  (WIP)
   - Ratings
+  - User
   - Tags
   - Autocomplete (Tags only)
     
 - Tags 
   - Add tags to posts (WIP)
   - Search by tag
-  - Search without tag
+  - Search excluding tag
+  - Tag categories
  
 - Ratings
   - Allows posts to be given ratings (which can be searched against)
