@@ -9,14 +9,18 @@ export function add_to_favourites(post_id, user_id) {
     fetch(url, {
         method: 'POST',
         body: formData,
-    })
+    }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
 
-    const favourite = document.getElementById(`addFavourite ${post_id}`);
-    console.log(favourite);
-    const image = favourite.querySelector('img');
-    image.src = '/static/svg/heart-fill-icon.svg';
-    favourite.id = `removeFavourite ${post_id}`;
-    favourite.setAttribute('onclick', `remove_from_favourites(${post_id}, ${user_id})`);
+            const favourite = document.getElementById(`addFavourite ${post_id}`);
+            console.log(favourite);
+            const image = favourite.querySelector('img');
+            image.src = '/static/svg/heart-fill-icon.svg';
+            favourite.id = `removeFavourite ${post_id}`;
+            favourite.setAttribute('onclick', `remove_from_favourites(${post_id}, ${user_id})`);
+        }
+    });
  
 }
 
@@ -32,16 +36,20 @@ export function remove_from_favourites(post_id, user_id) {
     fetch(url, {
         method: 'POST',
         body: formData,
-    })
+    }).then(response => response.json())
+    .then(data => {
+        if (data.success) {
 
-    const favourite = document.getElementById(`removeFavourite ${post_id}`);
-    console.log(favourite);
-    const image = favourite.querySelector('img');
-    image.src = '/static/svg/heart-empty-icon.svg';
-    favourite.id = `addFavourite ${post_id}`;
-    favourite.setAttribute('onclick', `add_to_favourites(${post_id}, ${user_id})`);
- 
 
+            const favourite = document.getElementById(`removeFavourite ${post_id}`);
+            console.log(favourite);
+            const image = favourite.querySelector('img');
+            image.src = '/static/svg/heart-empty-icon.svg';
+            favourite.id = `addFavourite ${post_id}`;
+            favourite.setAttribute('onclick', `add_to_favourites(${post_id}, ${user_id})`);
+    
+        }
+    });
 }
 
 

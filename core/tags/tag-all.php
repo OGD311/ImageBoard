@@ -24,16 +24,20 @@ if ($result) {
     $previousCategory = null;
     echo '<h4>Tags</h4>';
 
-    echo '<ul id="tags-list">';
     foreach ($tags as $tag) {
-        if ($tag['category'] != $previousCategory) {
-            echo '<h3 class=' . $tag['category'] . '>' . ucfirst($tag['category']) . '</h3>';
+
+        $tag_category = strtolower($tag['category']);
+
+        if ($tag_category != $previousCategory) {
+            echo '</ul>
+            <h3 class=' . htmlspecialchars($tag_category) . '>' . htmlspecialchars(ucfirst($tag_category)) . '</h3>
+            <ul id="tags-list">';
         }
-        $alias = get_alias($tag['id']) ? get_alias($tag['id']) : null;
+        $alias = get_alias($tag['id']) ?? null;
 
         if ($alias) {
             if (!in_array($alias['id'], array_column($tags, 'id'))) {
-                echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($alias['name']) . '\', true)">+</a> 
+                echo '<li class=' . htmlspecialchars($tag_category) .'><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($alias['name']) . '\', true)">+</a> 
                     <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($alias['name']) . '\', false)">-</a></span> 
                     ' . str_replace('_', ' ', htmlspecialchars($alias['name'])) . ' (' . htmlspecialchars($alias['count']) . ')';
             }
@@ -42,13 +46,13 @@ if ($result) {
                 return $value['id'] != $alias['id'];
             });
         } else {
-            echo '<li class=' . htmlspecialchars($tag['category']) .'><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($tag['name']) . '\', true)">+</a> 
+            echo '<li class=' . htmlspecialchars($tag_category) .'><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($tag['name']) . '\', true)">+</a> 
                 <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($tag['name']) . '\', false)">-</a></span> 
                 ' . str_replace('_', ' ', htmlspecialchars($tag['name'])) . ' (' . htmlspecialchars($tag['count']) . ')';
         }
 
         echo '</li>';
-        $previousCategory = $tag['category'];
+        $previousCategory = $tag_category;
     }
 
     if ((count($tags)) == 0) {
