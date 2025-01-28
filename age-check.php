@@ -14,14 +14,14 @@ require_once 'config.php';
 
 <body>
 
-    <div style="height: 100vh;">
+    <div id="age-check">
         <div>
             <p>You must be over the age of 18 and agree to the <a href="#" >terms and conditions</a> to access this page.</p>
             <button id="agreeBtn" >
-                I agree to the <a href="#" >terms and conditions</a>
+                I <strong> agree </strong> to the <a href="#" >terms and conditions</a>
             </button>
             <button id="disagreeBtn" >
-                I do not agree to the <a href="#" >terms and conditions</a>
+                I <strong> do not </strong> agree to the <a href="#" >terms and conditions</a>
             </button>
         </div>
     </div>

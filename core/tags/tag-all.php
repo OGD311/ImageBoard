@@ -5,9 +5,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/core/tags/tag-functions.php';
 $mysqli = $_DB; 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
-    $sql = sprintf("SELECT id, name, count
+    $sql = sprintf("SELECT id, name, category, count
     FROM tags
     WHERE count != 0
+    ORDER BY category ASC
     LIMIT " . $_TAGS_ALL_LIMIT . "");
     
     $result = $mysqli->query($sql);
@@ -19,12 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
 }
 
-if ($result) {
+if ($result) { 
+    $previousCategory = null;
     echo '<h4>Tags</h4>';
 
-    echo '<ul>';
+    echo '<ul id="tags-list">';
     foreach ($tags as $tag) {
-        echo '<div > <p>';
+        if ($tag['category'] != $previousCategory) {
+            echo '<h3 class=' . $tag['category'] . '>' . ucfirst($tag['category']) . '</h3>';
+        }
         $alias = get_alias($tag['id']) ? get_alias($tag['id']) : null;
 
         if ($alias) {
@@ -38,14 +42,13 @@ if ($result) {
                 return $value['id'] != $alias['id'];
             });
         } else {
-            echo '<li><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($tag['name']) . '\', true)">+</a> 
+            echo '<li class=' . htmlspecialchars($tag['category']) .'><span><a id="addTag" onclick="add_and_search(\'' . htmlspecialchars($tag['name']) . '\', true)">+</a> 
                 <a id="removeTag" onclick="add_and_search(\'-' . htmlspecialchars($tag['name']) . '\', false)">-</a></span> 
                 ' . str_replace('_', ' ', htmlspecialchars($tag['name'])) . ' (' . htmlspecialchars($tag['count']) . ')';
         }
 
         echo '</li>';
-
-        echo '</p></div>';
+        $previousCategory = $tag['category'];
     }
 
     if ((count($tags)) == 0) {

@@ -105,7 +105,13 @@ form input:focus {
     align-items: center;
     font-size: 2em;
     margin-top: 1em;
+    width: 100%;
 }
+.counter > img {
+    width: 20%;
+    height: auto;
+}
+
 .site-details {
     display: flex;
     flex-direction: column;
@@ -127,8 +133,10 @@ footer {
     align-items: center;
     background-color: var(--nav-background-color);
     box-shadow: 0px -8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1em;
+    padding: 1em 0px;
     margin-top: auto;
+    width: 100%;
+
 }
 
 
@@ -199,4 +207,85 @@ nav > form {
 
 .dropdown-menu a:hover {
     background-color: #ddd;
+}
+
+
+/**** HOME ****/
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#pages-buttons {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+/**** POSTS ****/
+#posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    width: 100%;
+    padding: 1em;
+}
+
+#posts .extension {
+    position: relative;
+    top: -10px;
+    right: -15px;
+    width: fit-content;
+    padding: 5px;
+    background-color: #3b3939;
+    color: white;
+    font-weight: 600;
+}
+
+/*** TAGS ***/
+#tags {
+    display: flex;
+    flex-direction: column; /* Ensure tags are displayed in a column */
+    width: 15%; /* Adjust width as needed */
+    padding: 1em;
+    background-color: var(--nav-background-color); /* Optional: Add background color for better visibility */
+}
+
+
+#tags-list {
+    list-style: none;
+    padding: 0;
+}
+
+.copyright {
+    color: purple;
+}
+
+.character {
+    color: green;
+}
+
+.artist {
+    color: goldenrod;
+}
+
+.general {
+    color: blue;
+}
+
+.meta {
+    color: whitesmoke;
+}
+
+
+/**** AGE CHECK ****/
+#age-check {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: auto;
 }

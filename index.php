@@ -23,14 +23,7 @@ $posts_count_array = str_split((string)$posts_count);
         <?php include 'core/html-parts/nav.php'; ?>
 
         <div>
-            <?php
-            echo '<div class="counter">';
-            foreach ($posts_count_array as $counter) {
-                echo '<img src="/static/images/counter/' . $counter . '.png" alt="Post Image">';
-            }
-            echo '</div>';
-
-            ?>
+            
             <div class="site-details">
 
                 <?php if ($posts_count > 1 || $posts_count == 0): ?>
@@ -47,6 +40,14 @@ $posts_count_array = str_split((string)$posts_count);
                 </form>
             
             </div>
+
+            <?php
+                echo '<div class="counter">';
+                foreach ($posts_count_array as $counter) {
+                    echo '<img src="/static/images/counter/' . $counter . '.png" alt="Post Image">';
+                }
+                echo '</div>';
+            ?>
 
         </div>
 

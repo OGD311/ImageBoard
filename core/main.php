@@ -108,67 +108,69 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         </div>
         <br>
 
-        <div>
+        <div class="content-wrapper">
+            <div id="tags">
+                <?php include 'tags/tag-all.php'; ?>
+            </div>
 
-        <div>
-            <?php include 'tags/tag-all.php'; ?>
-        </div>
 
+            <div id="posts">
+                <?php
+                
+                    if ($result) {
+                        foreach ($posts as $post) {
+                            
+                            $apply_blur = $post['rating'] == 2 ? 'blur-explicit' : '';
+                            
+                            $filehash = htmlspecialchars($post['filehash']);
+                            $imageSrc = "/storage/thumbnails/{$filehash}-thumb.jpg";
+                            
+                            echo '<div>';
+                            echo '<a href="/core/posts/view.php?post_id=' . $post['id'] . '&search='. $searchString . '">';
+                            echo '<img class="' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;">';
+                            if (strtolower($post['extension']) != 'png' && strtolower($post['extension']) != 'jpg' && strtolower($post['extension']) != 'jpeg') {
+                                echo '<p class="extension">' . $post['extension'] . '</p>';
+                            }
+                            echo '</a>';
+                            echo '<span style="display: flex; align-items: center; gap: 10px;">';
+                            echo '<img src="/static/svg/comment-icon.svg" alt="Description of the icon" width="16" height="16">';
+                            echo '<p style="margin: 0;">' . $post['comment_count'] . '</p>';
+                            echo '<p style="margin: 0;" class="rating-' . $post['rating'] . '">' . get_rating_text($post['rating'], true) . '</p>';
+                            
+                            if (isset($_SESSION['user_id'])) {
 
-        <div id="posts">
-            <?php
-            
-                if ($result) {
-                    foreach ($posts as $post) {
-                        
-                        $apply_blur = $post['rating'] == 2 ? 'blur-explicit' : '';
-                        
-                        $filehash = htmlspecialchars($post['filehash']);
-                        $imageSrc = "/storage/thumbnails/{$filehash}-thumb.jpg";
-                        
-                        echo '<div>';
-                        echo '<a href="/core/posts/view.php?post_id=' . $post['id'] . '&search='. $searchString . '">';
-                        echo '<img class="' . $apply_blur . '" src="' . $imageSrc . '" alt="Post Image" width="200" height="200" style="object-fit: contain; padding-top: 10px; padding-bottom: 2px;" loading="lazy">';
-                        if (strtolower($post['extension']) != 'png' && strtolower($post['extension']) != 'jpg' && strtolower($post['extension']) != 'jpeg') {
-                            echo '<p>' . $post['extension'] . '</p>';
-                        }
-                        echo '</a>';
-                        echo '<span style="display: flex; align-items: center; gap: 10px;">';
-                        echo '<img src="/static/svg/comment-icon.svg" alt="Description of the icon" width="16" height="16">';
-                        echo '<p style="margin: 0;">' . $post['comment_count'] . '</p>';
-                        echo '<p style="margin: 0;" class="rating-' . $post['rating'] . '">' . get_rating_text($post['rating'], true) . '</p>';
-                        
-                        if (isset($_SESSION['user_id'])) {
-
-                        
-                            if (is_favourite($post['id'], $_SESSION['user_id'])) {
-                                echo '<a id="removeFavourite ' . $post['id'] . '" onclick="remove_from_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
-                                echo '<img src="/static/svg/heart-fill-icon.svg" alt="Description of the icon" width="16" height="16">';
-                                echo '</a>';
+                            
+                                if (is_favourite($post['id'], $_SESSION['user_id'])) {
+                                    echo '<a id="removeFavourite ' . $post['id'] . '" onclick="remove_from_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
+                                    echo '<img src="/static/svg/heart-fill-icon.svg" alt="Description of the icon" width="16" height="16">';
+                                    echo '</a>';
+                                } else {
+                                    echo '<a id="addFavourite ' . $post['id'] . '" onclick="add_to_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
+                                    echo '<img src="/static/svg/heart-empty-icon.svg" alt="Description of the icon" width="16" height="16">';
+                                    echo '</a>';
+                                }
+                            
                             } else {
-                                echo '<a id="addFavourite ' . $post['id'] . '" onclick="add_to_favourites(' . $post['id'] . ' , ' . $_SESSION['user_id'] . ')">';
+                                echo '<a href="/core/users/login.php">';
                                 echo '<img src="/static/svg/heart-empty-icon.svg" alt="Description of the icon" width="16" height="16">';
                                 echo '</a>';
                             }
-                        
-                        } else {
-                            echo '<a href="/core/users/login.php">';
-                            echo '<img src="/static/svg/heart-empty-icon.svg" alt="Description of the icon" width="16" height="16">';
-                            echo '</a>';
-                        }
 
-                        echo '</span>';
-                        echo '</div>';
+                            echo '</span>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "<p>Error: " . htmlspecialchars($mysqli->error) . "</p>";
                     }
-                } else {
-                    echo "<p>Error: " . htmlspecialchars($mysqli->error) . "</p>";
-                }
-                if ($current_page_number == $number_of_pages && ($total_posts > 0)) {
-                    echo "<p>You've reached the end!<br>If you got here from just scrolling I would be concerned...<br><a href='main.php?page=1'>Go Home</a></p>";
-                }
-            ?>
-        
-        
+                    if ($current_page_number == $number_of_pages && ($total_posts > 0)) {
+                        echo "<p>You've reached the end!<br>If you got here from just scrolling I would be concerned...<br><a href='main.php?page=1'>Go Home</a></p>";
+                    }
+                ?>
+            
+            </div>
+
+        </div>
+    
         <br>
 
         <div id="pages-buttons">
