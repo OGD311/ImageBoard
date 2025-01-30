@@ -35,7 +35,7 @@ $posts_count_array = str_split((string)$posts_count);
                 
                 <form role="search" action="/core/search-posts.php" method="post">
                     <input id="mainSearch"  autocomplete="off" type="search" name="search" placeholder="Enter Tags" value="" aria-label="Search" style="width: 50%;">
-                    <ul id="autocompleteBox"  aria-labelledby="dropdownMenuButton"></ul>
+                    <ul class="dropdown-menu" id="autocompleteBox" aria-labelledby="dropdownMenuButton" style="top: 9em;"></ul>
                     <button type="submit">Search</button>
                 </form>
             

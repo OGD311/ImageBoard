@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])) {
                                 value="' . $searchTerms . '" 
                                 aria-label="Search" style="width: 50%;">
 
-                            <ul id="autocompleteBox"  aria-labelledby="dropdownMenuButton"></ul>
+                            <ul class="dropdown-menu" id="autocompleteBox" aria-labelledby="dropdownMenuButton" style="top: 25.5em;"></ul>
                         </div>
 
                         <br>

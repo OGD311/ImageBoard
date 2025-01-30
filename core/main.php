@@ -1,6 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
-require_once '../core/retrieve-posts.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/retrieve-posts.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/core/favourites/favourites-functions.php';
 
 session_start();
@@ -162,9 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                     } else {
                         echo "<p>Error: " . htmlspecialchars($mysqli->error) . "</p>";
                     }
-                    if ($current_page_number == $number_of_pages && ($total_posts > 0)) {
-                        echo "<p>You've reached the end!<br>If you got here from just scrolling I would be concerned...<br><a href='main.php?page=1'>Go Home</a></p>";
-                    }
+
                 ?>
             
             </div>
@@ -176,6 +174,10 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         <div id="pages-buttons">
 
             <?php
+
+            if ($current_page_number == $number_of_pages && ($total_posts > 0)) {
+                echo "<p>You've reached the end!<br>If you got here from just scrolling I would be concerned...<br><a href='main.php?page=1'>Go Home</a></p>";
+            }
 
                 $current_page_number = max(1, $current_page_number); 
 
