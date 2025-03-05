@@ -21,14 +21,14 @@ A simple ImageBoard, written in PHP, based on shimmieV2
     
 - Search
   - Title
-  - Descriptions (filetype, date, etc)  (WIP)
+  - Descriptions (filetype, date, etc)
   - Ratings
   - User
   - Tags
   - Autocomplete (Tags only)
     
 - Tags 
-  - Add tags to posts (WIP)
+  - Add tags to posts
   - Search by tag
   - Search excluding tag
   - Tag categories
