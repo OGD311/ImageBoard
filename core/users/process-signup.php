@@ -1,6 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
-
+session_start();
 
 if (empty($_POST['username'])) {
     die('Username cannot be empty');
@@ -34,13 +34,13 @@ $stmt = $mysqli->stmt_init();
 if ( ! $stmt->prepare($sql) ) {
     die('SQL Error: ' . $mysqli->error);
 }
+$timestamp = time();
 
-$stmt->bind_param('ssi', $_POST['username'], $password_hash, time());
+$stmt->bind_param('ssi', $_POST['username'], $password_hash, $timestamp);
 
 if ($stmt->execute()) {
     $user_id = get_user_id($_POST['username']);
     
-    session_start();
 
     session_regenerate_id();
 

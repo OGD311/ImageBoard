@@ -1,6 +1,6 @@
-
-
 <?php
+use Dotenv\Dotenv;
+
 // File Links 
 $GLOBALS['_DB'] = require __DIR__ . "/storage/database.php";
 
@@ -23,9 +23,15 @@ $GLOBALS['_COMMENT_CHARACTER_LIMIT'] = 256;
 
 // Redis
 use Predis\Client as Redis;
-$redis = new Redis();
-$pubsub = new Redis();
-$redis->connect('localhost', 6379);
+
+$redis = new Redis([
+    'host' => $_ENV['REDIS_HOST'],
+    'port' => $_ENV['REDIS_PORT'],
+]);
+$pubsub = new Redis([
+    'host' => $_ENV['REDIS_HOST'],
+    'port' => $_ENV['REDIS_PORT'],
+]);
 $GLOBALS['_REDIS'] = $redis;
 $GLOBALS['_PUBSUB'] = $pubsub;
 $GLOBALS['_REDISTIMEOUT'] = 300;

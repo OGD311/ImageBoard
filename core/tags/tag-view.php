@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
     $tags = [];
     while ($tag = $result->fetch_assoc()) {
-        $tags[] = $tag; 
+        $tag = array_map('strtolower', $tag);
+        $tags[] = $tag;
     }
 
     

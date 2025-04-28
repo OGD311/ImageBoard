@@ -31,7 +31,7 @@ function get_profile_picture($user_id) {
     $row = $result->fetch_assoc();
     $stmt->close();
     
-    return $row['profile_picture'] != null ? ($row['profile_picture']) : 'default';
+    return isset($row['profile_picture']) ? $row['profile_picture'] : 'default';
 }
 
 function get_display_name($user_id) {

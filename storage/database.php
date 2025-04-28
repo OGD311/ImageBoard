@@ -9,7 +9,13 @@ $dotenv->load();
 
 try {
 
-    $mysqli = new mysqli(hostname: $_ENV['DB_HOSTNAME'], username: $_ENV['DB_USERNAME'], password: $_ENV['DB_PASSWORD'], database: $_ENV['DB_DATABASE']);
+    $mysqli = new mysqli(
+        hostname: $_ENV['DB_HOST'],
+        username: $_ENV['DB_USERNAME'],
+        password: $_ENV['DB_PASSWORD'],
+        database: $_ENV['DB_DATABASE'],
+        port: (int) $_ENV['DB_PORT'] ?? 3306
+    );
 
     if ($mysqli->connect_errno) {
         die("Connection error: " . $mysqli->connect_error);
@@ -17,9 +23,10 @@ try {
 
 } catch (Exception) {
     $mysqli = new mysqli(
-        hostname: $_ENV['DB_HOSTNAME'], 
+        hostname: $_ENV['DB_HOST'], 
         username: $_ENV['DB_USERNAME'], 
-        password: $_ENV['DB_PASSWORD']
+        password: $_ENV['DB_PASSWORD'],
+        port: (int) $_ENV['DB_PORT'] ?? 3306
     );
     
     if ($mysqli->connect_errno) {
@@ -89,7 +96,7 @@ try {
   
     $mysqli->close();
     
-    $mysqli = new mysqli(hostname: $_ENV['DB_HOSTNAME'], username: $_ENV['DB_USERNAME'], password: $_ENV['DB_PASSWORD'], database: $_ENV['DB_DATABASE']);
+    $mysqli = new mysqli(hostname: $_ENV['DB_HOST'], username: $_ENV['DB_USERNAME'], password: $_ENV['DB_PASSWORD'], database: $_ENV['DB_DATABASE']);
 
     echo '<br><br><br> Database successfully created! Please refresh the page and check on your PhpMyAdmin that everything is there.';
 }

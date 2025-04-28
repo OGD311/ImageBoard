@@ -66,6 +66,8 @@ function get_tag_count($tag) {
 function create_tag($tag, $count=0) {
     $mysqli = require dirname(__DIR__, 2) . "/storage/database.php";
     
+    $tag = strtolower($tag); // Keep tags as lowercase to avoid duplicates
+    
     if ($count > 0) {
         $sql = "INSERT INTO tags (name, count, created_at) VALUES (?, ?, ?)";
         $stmt = $mysqli->prepare($sql);
